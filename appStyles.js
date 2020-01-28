@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export const appStyles = StyleSheet.create({
     primarybtn: {
-        backgroundColor: '#1755F4'
+        backgroundColor: '#139EA7'
     },
     input: {
         height: 40,

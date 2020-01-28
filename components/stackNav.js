@@ -1,5 +1,6 @@
 import { createStackNavigator } from "react-navigation";
 import OnlineScreen from "./online";
+import HomeScreen from "./home";
 import ProductsScreen from "./products";
 import Login from "./login";
 import ProductDetails from "./productdetails";
@@ -7,6 +8,12 @@ import AuthLoadingScreen from "./auth-loading-screen";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 
 const AppStack = createStackNavigator({
+  Home: {
+    screen: HomeScreen,
+    navigationOptions: {
+      header: null
+    }
+  },
   Online: {
     screen: OnlineScreen,
     navigationOptions: {
@@ -28,7 +35,7 @@ const AppStack = createStackNavigator({
 });
 const AuthStack = createStackNavigator({
   Login: {
-    screen: Login,
+    screen: HomeScreen,
     navigationOptions: {
       header: null
     }

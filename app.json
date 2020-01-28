@@ -1,33 +1,27 @@
 {
   "expo": {
-    "name": "spidle",
-    "slug": "SpidleApp",
+    "name": "renatalcart",
+    "slug": "renatlApp",
     "privacy": "public",
     "sdkVersion": "33.0.0",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/appicon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#3D6CB9"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "./assets/*"
-    ],
+    "assetBundlePatterns": ["./assets/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
-      "package": "com.bellcorps.spidle"
+      "package": "com.rentalcart"
     },
     "description": ""
   }

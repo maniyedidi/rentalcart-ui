@@ -118,12 +118,6 @@ class HeaderBar extends Component {
               </View>
             </TouchableOpacity>
           )}
-          {showEllipsis && (
-            <ToggleOnlineComponent
-              onlineStatus={onlineStatus}
-              toggleOnline={toggleOnline}
-            />
-          )}
         </View>
       </View>
     );

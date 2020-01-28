@@ -3,7 +3,7 @@ export const SideMenuStyles = StyleSheet.create({
   container: {
     paddingTop: StatusBar.currentHeight,
     flex: 1,
-    backgroundColor: "#051D5B"
+    backgroundColor: "#3D6CB9"
   },
   shopName: {
     color: "white",

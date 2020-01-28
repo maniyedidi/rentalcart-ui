@@ -20,7 +20,7 @@ export const onlineOrderStyles = StyleSheet.create({
     // flexDirection: 'row-reverse',
     // alignItems: 'flex-end',
     // marginTop: 10,
-},
+  },
   positiveBtn: {
     width: 100,
     height: 35
