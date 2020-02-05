@@ -1,9 +1,14 @@
 export const SHOP_ENDPOINTS = {
+    LOGIN: 'rentalcart/api/login',
+    CATEGORIES: 'rentalcart/api/categoryList',
+    PRODUCTS: 'rentalcart/api/itemList',
+
+
+
     GETSHOP: 'core/restaurant/get/',
     CRETAESHOP: 'core/restaurant/add/',
     ADD_PRODUCT: 'core/inventory/product/',
-    GET_PRODUCT: 'core/inventory/product/getall/',
-    CATEGORIES: 'core/inventory/category/',
+    GET_PRODUCT: 'core/inventory/product/getall/',    
     VARIANTS_GET: 'core/inventory/variant/getall/',
     GET_ADDONS: 'core/inventory/addons/getall/',
     GET_VARIANTS: 'core/inventory/variant/getall/',
@@ -40,7 +45,6 @@ export const SHOP_ENDPOINTS = {
     ADD_RESTAURANT: 'core/restaurant/add/',
     UPDATE_RESTAURANT: 'core/restaurant/updaterestaurant/',
     UPLOAD_PRODUCTS: 'core/inventory/product/upload/',
-    LOGIN: 'core/users/login/',
     CHANGE_PASSWORD: 'core/users/changepassword/',
     UPLOAD_CUSTOMERS: 'core/configuration/uploadcustomers/',
     ACCESS_PREF: 'core/configuration/accesspref/',
@@ -54,8 +58,8 @@ export const SHOP_ENDPOINTS = {
     PUSH_TOKENS: "core/users/push-token",
     SYNC: 'notification/sync/'
 }
-const STAGING_DOMAIN_NAME = 'https://dev01.api.spidlepos.com/'
-const PRODUCTION_DOMAIN_NAME = 'https://api.spidlepos.com/';
+const STAGING_DOMAIN_NAME = 'https://rentalcart-dev.herokuapp.com/'
+const PRODUCTION_DOMAIN_NAME = 'https://rentalcart.herokuapp.com/';
 
 export const DOMAIN_NAME = STAGING_DOMAIN_NAME;
 

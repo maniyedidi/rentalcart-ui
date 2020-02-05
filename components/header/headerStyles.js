@@ -4,7 +4,9 @@ export const headerStyles = StyleSheet.create({
   headerBar: {
     flex: 1,
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    paddingLeft:10,
+    alignItems: "center"
   },
   menuIcon: {
     flexDirection: "row",

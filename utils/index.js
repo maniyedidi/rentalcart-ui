@@ -5,7 +5,7 @@ import { Text, Platform } from 'react-native';
 export const authHeader = async () => {
     return retrieveData('user').then((user) => {
         if (user && user !== "undefined") {
-            return 'Bearer ' + JSON.parse(user).access_token;
+            return 'Bearer ' + JSON.parse(user).token;
         } else {
             return '';
         }

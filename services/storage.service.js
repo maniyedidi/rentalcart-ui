@@ -2,7 +2,7 @@ import { AsyncStorage } from 'react-native';
 
 export const storeData = async (key, value) => {
     try {
-        await AsyncStorage.setItem(`spiddleapp:${key}`, JSON.stringify(value));           
+        await AsyncStorage.setItem(`rentalcartapp:${key}`, JSON.stringify(value));           
     } catch (error) {
         // Error saving data
     }
@@ -11,7 +11,7 @@ export const storeData = async (key, value) => {
 
 export const  retrieveData = async (key) => {
     try {
-        const value = await AsyncStorage.getItem(`spiddleapp:${key}`);
+        const value = await AsyncStorage.getItem(`rentalcartapp:${key}`);
         if (value !== null) {
             // We have data!!         
             return value;

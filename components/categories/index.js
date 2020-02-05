@@ -7,7 +7,7 @@ import { appStyles } from "../../appStyles";
 import { onlineOrderStyles } from "./styles";
 import Loader from "../../shared-components/loader";
 
-class Products extends Component {
+class Categories extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -71,4 +71,4 @@ class Products extends Component {
   }
 }
 
-export default Products;
+export default Categories;

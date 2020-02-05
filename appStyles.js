@@ -18,6 +18,7 @@ export const appStyles = StyleSheet.create({
     headerTitle:{
         fontWeight:"bold",
         paddingLeft:10,
-        fontSize:16
+        fontSize:16,
+        color:"white"
     }
 });

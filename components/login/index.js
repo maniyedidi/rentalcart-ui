@@ -12,13 +12,11 @@ import { getShopDetails } from "../../redux/actions";
 class Login extends Component {
   constructor(props) {
     super(props);
-    // reset login status
     this.state = {
       username: "",
       password: "",
       submitted: false,
       redirectUrl: "",
-      pin: "",
       loggingIn: true,
       requiredPin: false,
       erroFlag: false,
@@ -48,7 +46,6 @@ class Login extends Component {
     let reqBody = {
       email: this.state.username,
       password: this.state.password,
-      pin: this.state.pin
     };
     const headers = { "Content-Type": "application/json" };
     const requestOptions = {
@@ -61,24 +58,12 @@ class Login extends Component {
     fetch(`${DOMAIN_NAME}${SHOP_ENDPOINTS.LOGIN}`, requestOptions)
       .then(this.handleResponse)
       .then(user => {
-        if (user.code) {
-          if (user.message === "Pin Required") {
-            this.setState({ requiredPin: true, loggingIn: false });
-          }
-          this.setState({ errorMsg: user.message, loggingIn: false });
-        } else {
-          // update application token when not found
-          if (!retrieveData("spidleAppToken")) {
-            storeData("spidleAppToken", user.data);
-          }
-
-          storeData("user", user.data).then(token => {
-            this.props.navigation.navigate("Online");
+          storeData("user", user).then(token => {
+            this.props.navigation.navigate("Home");
             this.props.getShopDetails();
             this.setState({ loggingIn: false });
           });
-        }
-      })
+        })      
       .catch(() => this.setState({ loggingIn: false }));
   };
 
@@ -112,16 +97,6 @@ class Login extends Component {
               secureTextEntry={true}
               onChangeText={value => this.setState({ password: value })}
               value={password}
-            />
-            <TextInput
-              style={appStyles.input}
-              placeholder="Pin"
-              secureTextEntry={true}
-              maxLength={4}
-              keyboardType={"number-pad"}
-              name="pin"
-              onChangeText={value => this.setState({ pin: value })}
-              value={pin}
             />
             <View style={{ margin: 7 }} />
             <Button

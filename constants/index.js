@@ -1,5 +1,7 @@
 export const RIGHT_MENU = [{
-    title: 'Products'
+    title: 'Home'
+}, {
+    title: 'Sell',
 }, {
     title: 'Online',
 }];
