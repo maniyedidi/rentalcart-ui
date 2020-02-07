@@ -3,7 +3,7 @@ export const RIGHT_MENU = [{
 }, {
     title: 'Sell',
 }, {
-    title: 'Online',
+    title: 'Orders',
 }];
 export const PRODUCTS_CATEGORIES = ['All', 'Veg Starter', 'Non Veg Starter', 'Veg Main Course', 'Non Veg Main Course']
 export const SETUP_MENU = ['Shop', 'Products', 'Variants', 'AddOns', 'Notes', 'Offers', 'Tax', 'Additional Charges', 'PosUser', 'Account Info'];

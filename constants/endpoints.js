@@ -2,6 +2,8 @@ export const SHOP_ENDPOINTS = {
     LOGIN: 'rentalcart/api/login',
     CATEGORIES: 'rentalcart/api/categoryList',
     PRODUCTS: 'rentalcart/api/itemList',
+    CREATE_ORDER:'rentalcart/api/createOrder',
+    ORDERS:"rentalcart/api/orders",
 
 
 
@@ -16,7 +18,6 @@ export const SHOP_ENDPOINTS = {
     ADDONS: 'core/inventory/addons/',
     NOTES: 'core/inventory/notes/',
     GET_USERS: 'core/users/getuser/',
-    ORDERS: 'core/orders/order/',
     CUSTOMER: 'core/restaurant/customer/',
     CUSTOMER_ORDERS: 'core/orders/customer/',
     GET_CUSTOMER: 'core/restaurant/customers/getall/',

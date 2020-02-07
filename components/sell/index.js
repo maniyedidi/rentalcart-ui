@@ -10,7 +10,7 @@ import HeaderBar from "../header";
 import { Icon } from "react-native-elements";
 import { storeData } from "../../services/storage.service";
 
-const Order = props => {
+const Sell = props => {
   const [productsList, setProductsList] = useState([]);
   const [orderedItems, setOrderedItems] = useState({});
   const [dataLoading, setDataLoading] = useState({});
@@ -148,4 +148,4 @@ const Order = props => {
   }
 };
 
-export default Order;
+export default Sell;

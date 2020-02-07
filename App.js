@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Dimensions } from "react-native";
 import { createDrawerNavigator, createAppContainer } from "react-navigation";
-import SideMenu from "./components/sidemenu/SideMenu";
+import SideMenu from "./components/sidemenu";
 import stackNav from "./components/stackNav";
 import { MenuProvider } from "react-native-popup-menu";
 import { textCutFix } from "./utils";

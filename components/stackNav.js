@@ -5,12 +5,13 @@ import Login from "./login";
 import ProductDetails from "./productdetails";
 import AuthLoadingScreen from "./auth-loading-screen";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
-import Order from "./order";
+import Sell from "./sell";
 import OrderCart from "./order-cart";
+import Orders from "./orders";
 
 const AppStack = createStackNavigator({
   Sell: {
-    screen: Order,
+    screen: Sell,
     navigationOptions: {
       header: null
     }
@@ -20,6 +21,12 @@ const AppStack = createStackNavigator({
     navigationOptions: () => ({
       title: "Order Detail"
     })
+  },
+  Orders: {
+    screen: Orders,
+    navigationOptions: {
+      header: null
+    }
   },
   Home: {
     screen: HomeScreen,
