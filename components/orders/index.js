@@ -1,24 +1,27 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Text, ScrollView, View, TouchableOpacity } from "react-native";
+import HeaderBar from "../header";
 import { invokeApi } from "../../services/dataServices";
 import { DOMAIN_NAME, SHOP_ENDPOINTS } from "../../constants/endpoints";
-import { Card } from "react-native-elements";
+import { Card, Icon } from "react-native-elements";
 import { appStyles } from "../../appStyles";
-import { onlineOrderStyles } from "./styles";
+import { ordersStyles } from "./styles";
 import Loader from "../../shared-components/loader";
 import moment from "moment";
+import { viewDateFormat } from "../../utils";
 
-const Orders = () => {
+const Orders = props => {
   const [dataLoading, setDataLoading] = useState(false);
   const [orderList, setOrderList] = useState([]);
+  const navigation = props.navigation;
 
   useEffect(() => {
     getOrders();
   }, []);
 
   const getOrders = () => {
-    setDataLoading(true);    
-    invokeApi(`${DOMAIN_NAME}${SHOP_ENDPOINTS.CATEGORIES}`, "GET")
+    setDataLoading(true);
+    invokeApi(`${DOMAIN_NAME}${SHOP_ENDPOINTS.ORDERS}`, "GET")
       .then(data => {
         setDataLoading(false);
         if (data.error) {
@@ -33,7 +36,16 @@ const Orders = () => {
     return <Loader />;
   }
   return (
-    <View style={onlineOrderStyles.onlineContainer}>
+    <View style={ordersStyles.orderContainer}>
+      <View
+        style={{
+          height: 70,
+          backgroundColor: "#3D6CB9",
+          paddingTop: 5
+        }}
+      >
+        <HeaderBar navigation={navigation} title="Home"></HeaderBar>
+      </View>
       <View>
         {orderList.length === 0 ? (
           <View style={appStyles.noRecord}>
@@ -42,15 +54,45 @@ const Orders = () => {
         ) : (
           <ScrollView>
             {orderList.map(order => {
+              let customer =
+                (order.customerdetails &&
+                  order.customerdetails.length > 0 &&
+                  order.customerdetails[0]) ||
+                {};
               return (
                 <Card containerStyle={{ margin: 0 }} key={order.id}>
-                  <View style={onlineOrderStyles.orderItem}>
-                    <View style={onlineOrderStyles.orderId}>
-                      <Text>{order.id}</Text>
-                      <Text>{moment(order.orderDate).fromNow()}</Text>
-                    </View>
-                    <View style={onlineOrderStyles.orderId}></View>
+                <View>
+                <View style={ordersStyles.orderItem}>
+                    <Text style={ordersStyles.itemCol1}>
+                      {(customer && customer.firstName) || " - "}{" "}
+                      <Text style={ordersStyles.orderDate}>
+                        ({viewDateFormat(order.orderDate)})
+                      </Text>
+                    </Text>
+
+                    <Text style={ordersStyles.itemCol2}>
+                      Status {order.orderStatus || "-"}
+                    </Text>
+                    <TouchableOpacity style={ordersStyles.itemCol3}>
+                      <Icon
+                        name="share-alt"
+                        size={25}
+                        type="font-awesome"
+                        color="#3D6CB9"
+                      />
+                    </TouchableOpacity>
                   </View>
+                  <View style={ordersStyles.orderview}>                    
+                    <Text style={ordersStyles.amount}>
+                      Amount {order.amount || "0"}
+                    </Text>
+                    <TouchableOpacity>
+                      <Text style={appStyles.link}>View more</Text>
+                    </TouchableOpacity>
+                  </View>
+
+                </View>
+                  
                 </Card>
               );
             })}

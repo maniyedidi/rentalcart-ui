@@ -22,10 +22,18 @@ const HomeScreen = props => {
         <HeaderBar navigation={navigation} title="Home">         
         </HeaderBar>
       </View>
+      <View
+        style={{
+          height: 45,
+          backgroundColor: "#3D6CB9",          
+        }}
+      >
       <HomeTabs
         activeTab={activeTab}
         setActiveTab={index => setActiveTab(index)}
       />
+      </View>
+      
       <View>{activeTab === 0 ? <Categories /> : <Products />}</View>
     </View>
   );

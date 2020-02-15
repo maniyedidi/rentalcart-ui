@@ -39,6 +39,7 @@ export default async function registerForPushNotificationsAsync() {
     let token = await Notifications.getExpoPushTokenAsync();
     return retrieveData('user').then((user) => {
         return invokeApi(`${DOMAIN_NAME}${SHOP_ENDPOINTS.PUSH_TOKENS}`, 'POST', {
+            userid:user.user && user.user._id || "",
             token: token.substring(token.indexOf('[') + 1, token.indexOf(']'))
         });
     })

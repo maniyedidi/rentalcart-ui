@@ -4,7 +4,7 @@ export const SHOP_ENDPOINTS = {
     PRODUCTS: 'rentalcart/api/itemList',
     CREATE_ORDER:'rentalcart/api/createOrder',
     ORDERS:"rentalcart/api/orders",
-
+    PUSH_TOKENS: "pushToken",
 
 
     GETSHOP: 'core/restaurant/get/',
@@ -55,12 +55,12 @@ export const SHOP_ENDPOINTS = {
     PAST_ONLINE_ORDERS: 'core/orders/pastonlineorders/',
     TOGGLE_ONLINE: "core/restaurant/aggregators/toggle/",
     BULK_UPDATE: "core/inventory/category/changestatus/",
-    ONLINE_STATUS: "core/restaurant/store/online/status/",
-    PUSH_TOKENS: "core/users/push-token",
+    ONLINE_STATUS: "core/restaurant/store/online/status/",    
     SYNC: 'notification/sync/'
 }
-const STAGING_DOMAIN_NAME = 'https://rentalcart-dev.herokuapp.com/'
+const STAGING_DOMAIN_NAME = 'https://rentalcart-dev.herokuapp.com/';
 const PRODUCTION_DOMAIN_NAME = 'https://rentalcart.herokuapp.com/';
+const LOCAL_DOMAIN_NAME = 'https://a7b39835.ngrok.io/';
 
 export const DOMAIN_NAME = STAGING_DOMAIN_NAME;
 

@@ -57,7 +57,7 @@ const Sell = props => {
   };
 
   const navToDetailsScreen = () => {
-    console.log(orderedItems);
+    
     
     storeData("orderedItems", orderedItems).then((res) => {
       props.navigation.navigate("OrderCart");
@@ -94,26 +94,26 @@ const Sell = props => {
             </View>
           ) : (
             <ScrollView>
-              {productsList.map(poroduct => {
+              {productsList.map(product => {
                 return (
-                  <Card containerStyle={{ margin: 0 }} key={poroduct.id}>
+                  <Card containerStyle={{ margin: 0 }} key={product.id}>
                     <View style={sellStyles.orderItemRow}>
                       <View style={sellStyles.itemdetails}>
-                        <Text style={sellStyles.name}>{poroduct.name}</Text>
+                        <Text style={sellStyles.name}>{product.name}</Text>
                         <Text style={sellStyles.count}>
                           Available count{" "}
-                          {poroduct.availableCount -
+                          {product.availableCount -
                             ((orderedItems &&
-                              orderedItems[poroduct.id] &&
-                              orderedItems[poroduct.id].count) ||
+                              orderedItems[product.id] &&
+                              orderedItems[product.id].count) ||
                               0)}
                         </Text>
                         <Text style={sellStyles.price}>
-                          Price per day RS {poroduct.amount}
+                          Price per day RS {product.amount}
                         </Text>
                       </View>
                       <View style={sellStyles.addRemoveBtns}>
-                        <TouchableOpacity onPress={() => addItem(poroduct)}>
+                        <TouchableOpacity onPress={() => addItem(product)}>
                           <Icon
                             name="plus-square"
                             size={30}
@@ -123,11 +123,11 @@ const Sell = props => {
                         </TouchableOpacity>
                         <Text>
                           {(orderedItems &&
-                            orderedItems[poroduct.id] &&
-                            orderedItems[poroduct.id].count) ||
+                            orderedItems[product.id] &&
+                            orderedItems[product.id].count) ||
                             0}{" "}
                         </Text>
-                        <TouchableOpacity onPress={() => removeItem(poroduct)}>
+                        <TouchableOpacity onPress={() => removeItem(product)}>
                           <Icon
                             name="minus-square"
                             size={30}

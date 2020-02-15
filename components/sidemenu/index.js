@@ -23,7 +23,7 @@ class SideMenu extends Component {
     };
   }
   componentDidMount() {
-    this.props.getShopDetails();
+    // this.props.getShopDetails();
   }
 
   componentWillReceiveProps(nextProps) {

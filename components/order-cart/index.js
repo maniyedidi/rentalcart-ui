@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Text, ScrollView, View, TouchableOpacity } from "react-native";
+import { Text, ScrollView, View, TextInput } from "react-native";
 import { Card, Button } from "react-native-elements";
 import { appStyles } from "../../appStyles";
-import { sellStyles } from "./styles";
+import { orderCartStyles } from "./styles";
 import Loader from "../../shared-components/loader";
-import { Icon } from "react-native-elements";
 import { retrieveData } from "../../services/storage.service";
 import { DOMAIN_NAME, SHOP_ENDPOINTS } from "../../constants/endpoints";
 import { invokeApi } from "../../services/dataServices";
@@ -12,59 +11,50 @@ import { invokeApi } from "../../services/dataServices";
 const OrderCart = props => {
   const [orderedItems, setOrderedItems] = useState({});
   const [dataLoading, setDataLoading] = useState(true);
+  const [billAmount, setBillAmount] = useState(0);
+
+  const [customerdetails, setCustomerdetails] = useState({
+    firstName: "",
+    contact: ""
+  });
 
   useEffect(() => {
-    retrieveData("orderedItems").then(items => {
-      if (items) {
-        setOrderedItems(JSON.parse(items));
+    retrieveData("orderedItems").then(response => {
+      if (response) {
+        let items = JSON.parse(response || "{}");
+        let amount = 0;
+        Object.keys(items).forEach(id => {
+          amount = amount + items[id].count * items[id].amount;
+        });
+        setBillAmount(amount);
+        setOrderedItems(items);
       }
       setDataLoading(false);
     });
   }, []);
 
-  const addItem = item => {
-    if (orderedItems && orderedItems[item.id]) {
-      orderedItems[item.id]["count"]++;
-    } else {
-      orderedItems[item.id] = item;
-      orderedItems[item.id]["count"] = 1;
-    }
-    setOrderedItems(orderedItems);
-  };
-
-  const removeItem = item => {
-    if (
-      orderedItems &&
-      orderedItems[item.id] &&
-      orderedItems[item.id]["count"] > 0
-    ) {
-      orderedItems[item.id]["count"]--;
-      if (orderedItems[item.id]["count"] === 0) {
-        delete orderedItems[item.id];
-      }
-    }
-    setOrderedItems(orderedItems);
-  };
-
   const createOrder = () => {
     let amount = 0;
     let items = [];
     setDataLoading(true);
+
     Object.keys(orderedItems).forEach(id => {
-      amount = amount + orderedItems[id].count * orderedItems[id].price;
+      amount = amount + orderedItems[id].count * orderedItems[id].amount;
       items.push(orderedItems[id]);
     });
+    customerdetails["id"] = customerdetails.contact;
+
     const payload = {
-      id: new Date().getTime(),
-      customerId: "",
-      orderDate: new Date().getTime(),
+      id: Date.now(),
+      customer: customerdetails,
+      orderDate: Date.now(),
       orderStatus: "open",
       orderItems: items,
       paymentType: "CASH",
       amount: amount,
       discount: 0,
-      updatedAt: new Date().getTime(),
-      createdAt: new Date().getTime(),
+      updatedAt: Date.now(),
+      createdAt: Date.now(),
       archive: false
     };
 
@@ -76,7 +66,9 @@ const OrderCart = props => {
         }
         setDataLoading(false);
       })
-      .catch(() => setDataLoading(false));
+      .catch(err => {
+        setDataLoading(false);
+      });
   };
 
   const navToOrderScreen = () => {
@@ -96,62 +88,84 @@ const OrderCart = props => {
         />
       </View>
     ) : (
-      <View style={sellStyles.onlineContainer}>
-        <ScrollView>
-          {Object.keys(orderedItems || {}).map(id => {
-            return (
-              <Card containerStyle={{ margin: 0 }} key={id}>
-                <View style={sellStyles.orderItemRow}>
-                  <View style={sellStyles.itemdetails}>
-                    <Text style={sellStyles.name}>{orderedItems[id].name}</Text>
-                    <Text style={sellStyles.count}>
-                      Available count{" "}
-                      {orderedItems[id].availableCount -
-                        ((orderedItems &&
-                          orderedItems[id] &&
-                          orderedItems[id].count) ||
-                          0)}
-                    </Text>
-                    <Text style={sellStyles.price}>
-                      Price per day RS {orderedItems[id].amount}
-                    </Text>
-                  </View>
-                  <View style={sellStyles.addRemoveBtns}>
-                    <TouchableOpacity onPress={() => addItem(orderedItems[id])}>
-                      <Icon
-                        name="plus-square"
-                        size={30}
-                        color="#00D1FF"
-                        type="font-awesome"
-                      />
-                    </TouchableOpacity>
-                    <Text>
-                      {(orderedItems &&
-                        orderedItems[id] &&
-                        orderedItems[id].count) ||
-                        0}{" "}
-                    </Text>
-                    <TouchableOpacity
-                      onPress={() => removeItem(orderedItems[id])}
-                    >
-                      <Icon
-                        name="minus-square"
-                        size={30}
-                        color="#00D1FF"
-                        type="font-awesome"
-                      />
-                    </TouchableOpacity>
-                  </View>
+      <View style={orderCartStyles.cartContainer}>
+        <ScrollView style={orderCartStyles.bodyContainer}>
+          <View style={orderCartStyles.cusstomerDetails}>
+            <Card containerStyle={{ margin: 0 }}>
+              <TextInput
+                placeholder="Customer name"
+                style={appStyles.input}
+                onChangeText={value =>
+                  setCustomerdetails({
+                    ...customerdetails,
+                    firstName: value
+                  })
+                }
+                value={customerdetails.firstName}
+              />
+              <TextInput
+                placeholder="Customer number"
+                style={appStyles.input}
+                onChangeText={value =>
+                  setCustomerdetails({
+                    ...customerdetails,
+                    contact: value
+                  })
+                }
+                value={customerdetails.contact}
+              />
+              <TextInput
+                placeholder="Address"
+                style={appStyles.input}
+                onChangeText={value =>
+                  setCustomerdetails({
+                    ...customerdetails,
+                    address: value
+                  })
+                }
+                value={customerdetails.address}
+              />
+            </Card>
+          </View>
+          <Card containerStyle={{ margin: 0 }}>
+            <View style={orderCartStyles.tableRow}>
+              <Text style={orderCartStyles.col1}>Name </Text>
+              <Text style={orderCartStyles.col2}>Price </Text>
+              <Text style={orderCartStyles.col3}>Qty </Text>
+              <Text style={orderCartStyles.col4}>Total </Text>
+            </View>
+            {Object.keys(orderedItems || {}).map(id => {
+              return (
+                <View style={orderCartStyles.tableRow}>
+                  <Text style={orderCartStyles.col1}>
+                    {orderedItems[id].name}
+                  </Text>
+                  <Text style={orderCartStyles.col2}>
+                    {orderedItems[id].amount || "0.00"}
+                  </Text>
+                  <Text style={orderCartStyles.col3}>
+                    {orderedItems && orderedItems[id] && orderedItems[id].count}
+                  </Text>
+                  <Text style={orderCartStyles.col4}>
+                    {orderedItems &&
+                      orderedItems[id] &&
+                      orderedItems[id].count * orderedItems[id].amount}
+                  </Text>
                 </View>
-              </Card>
-            );
-          })}
+              );
+            })}
+            <View style={orderCartStyles.grandTotal}>
+              <Text>Grand Total RS {billAmount}</Text>
+            </View>
+          </Card>
         </ScrollView>
-        <Button
-          title="create order"
-          buttonStyle={appStyles.primarybtn}
-          onPress={() => createOrder()}
-        />
+        <View style={orderCartStyles.footerContainer}>
+          <Button
+            title="Create Order"
+            buttonStyle={appStyles.primarybtn}
+            onPress={() => createOrder()}
+          />
+        </View>
       </View>
     );
   }

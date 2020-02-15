@@ -1,6 +1,5 @@
 import * as React from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
-import { Icon } from "react-native-elements";
 
 export default function HomeTabs(props) {
   const [index, setIndex] = React.useState(0);
@@ -22,9 +21,6 @@ export default function HomeTabs(props) {
         }}
       >
         <Text style={styles.tabTitle}>Category</Text>
-        {index === 0 && (
-          <Icon name="plus" size={20} color="white" type="font-awesome" />
-        )}
       </TouchableOpacity>
       <TouchableOpacity
         style={
@@ -41,9 +37,6 @@ export default function HomeTabs(props) {
         }}
       >
         <Text style={styles.tabTitle}>Products</Text>
-        {index === 1 && (
-          <Icon name="plus-circle" size={20} color="white" type="font-awesome" />
-        )}
       </TouchableOpacity>
     </View>
   );
@@ -61,14 +54,13 @@ const styles = StyleSheet.create({
     fontWeight: "600"
   },
   activeTab: {
-    borderBottomColor: "#0A4BB5",
+    borderBottomColor: "white",
     borderBottomWidth: 5
   },
   tab: {
     flex: 1,
     height: 45,
-    paddingTop: 10,
-    paddingLeft: 10,
+    paddingTop: 10,    
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center"
