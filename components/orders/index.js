@@ -7,7 +7,7 @@ import { appStyles } from "../../appStyles";
 import { ordersStyles } from "./styles";
 import Loader from "../../shared-components/loader";
 import { viewDateFormat } from "../../utils";
-import HeaderMenu from "../header/menu";
+import MenuIcon from "../../shared-components/header-menu";
 
 const Orders = props => {
   const [dataLoading, setDataLoading] = useState(false);
@@ -39,7 +39,7 @@ const Orders = props => {
       <Header
         backgroundColor="#3D6CB9"
         placement="left"
-        leftComponent={<HeaderMenu navigation={navigation} />}
+        leftComponent={<MenuIcon navigation={navigation} />}
         centerComponent={{ text: "Orders", style: { color: "#fff" } }}
       />
       <View>

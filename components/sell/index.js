@@ -7,7 +7,7 @@ import { appStyles } from "../../appStyles";
 import { sellStyles } from "./styles";
 import Loader from "../../shared-components/loader";
 import { storeData } from "../../services/storage.service";
-import HeaderMenu from "../header/menu";
+import MenuIcon from "../../shared-components/header-menu";
 
 const Sell = props => {
   const [productsList, setProductsList] = useState([]);
@@ -82,7 +82,7 @@ const Sell = props => {
         <Header
           backgroundColor="#3D6CB9"
           placement="left"
-          leftComponent={<HeaderMenu navigation={props.navigation} />}
+          leftComponent={<MenuIcon navigation={props.navigation} />}
           centerComponent={{ text: "Sell", style: { color: "#fff" } }}
           rightComponent={cartComponent()}
         />

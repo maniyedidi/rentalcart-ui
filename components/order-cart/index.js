@@ -112,6 +112,7 @@ const OrderCart = props => {
                     contact: value
                   })
                 }
+                keyboardType="phone-pad"
                 value={customerdetails.contact}
               />
               <TextInput

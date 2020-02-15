@@ -1,8 +1,6 @@
 import { createStackNavigator } from "react-navigation";
-import OnlineScreen from "./online";
 import HomeScreen from "./home";
 import Login from "./login";
-import ProductDetails from "./productdetails";
 import AuthLoadingScreen from "./auth-loading-screen";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import Sell from "./sell";
@@ -36,12 +34,6 @@ const AppStack = createStackNavigator({
       header: null
     }
   },
-  Online: {
-    screen: OnlineScreen,
-    navigationOptions: {
-      header: null
-    }
-  },
   CreateCategory: {
     screen: CreateCategory,
     navigationOptions: {
@@ -53,12 +45,6 @@ const AppStack = createStackNavigator({
     navigationOptions: {
       header: null
     }
-  },
-  ProductDetails: {
-    screen: ProductDetails,
-    navigationOptions: () => ({
-      title: "Order Detail"
-    })
   }
 });
 const AuthStack = createStackNavigator({

@@ -9,7 +9,7 @@ import {
 } from "react-native-popup-menu";
 import Products from "../products";
 import { homeStyles } from "./styles";
-import HeaderMenu from "../header/menu";
+import MenuIcon from "../../shared-components/header-menu";
 
 const HomeScreen = props => {
   const navigation = props.navigation;
@@ -59,7 +59,7 @@ const HomeScreen = props => {
       <Header
         backgroundColor="#3D6CB9"
         placement="left"
-        leftComponent={<HeaderMenu navigation={navigation} />}
+        leftComponent={<MenuIcon navigation={navigation} />}
         centerComponent={{ text: "Home", style: { color: "#fff" } }}
         rightComponent={productsMenuComponent()}
       />

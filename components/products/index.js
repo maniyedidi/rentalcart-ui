@@ -9,7 +9,7 @@ import Loader from "../../shared-components/loader";
 
 const Products = props => {
   const [itemList, setCategoryList] = useState([]);
-  const [dataLoading, setDataLoading] = useState([]);
+  const [dataLoading, setDataLoading] = useState(false);
 
   useEffect(() => {
     getProducts();
