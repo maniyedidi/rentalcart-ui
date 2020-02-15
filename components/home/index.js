@@ -54,6 +54,14 @@ const HomeScreen = props => {
     );
   };
 
+  const goToCreateItems = () => {
+    return (
+      <TouchableOpacity onPress={() => navigation.navigate("CreateProduct")}>
+        <Icon color="#fff" name="plus-square" size={30} type="font-awesome" />
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <View style={homeStyles.homeContainer}>
       <Header
@@ -61,7 +69,7 @@ const HomeScreen = props => {
         placement="left"
         leftComponent={<MenuIcon navigation={navigation} />}
         centerComponent={{ text: "Home", style: { color: "#fff" } }}
-        rightComponent={productsMenuComponent()}
+        rightComponent={goToCreateItems()}
       />
       <View>
         <Products />

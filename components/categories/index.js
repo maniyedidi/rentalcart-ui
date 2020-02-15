@@ -1,5 +1,5 @@
-import React, { Component, useState, useEffect } from "react";
-import { Text, ScrollView, View, TouchableOpacity } from "react-native";
+import React, { useState, useEffect } from "react";
+import { Text, ScrollView, View } from "react-native";
 import { invokeApi } from "../../services/dataServices";
 import { DOMAIN_NAME, SHOP_ENDPOINTS } from "../../constants/endpoints";
 import { Card } from "react-native-elements";
