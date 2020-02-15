@@ -43,5 +43,12 @@ export const SideMenuStyles = StyleSheet.create({
   },
   logoutBtn: {
     color: "white"
+  },
+  version:{
+    flexDirection: "row",
+    justifyContent:"flex-end",
+    height:20,
+    fontSize:8,
+    color:"white"
   }
 });

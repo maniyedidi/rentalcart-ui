@@ -79,6 +79,9 @@ const SideMenu = props => {
           <Text style={SideMenuStyles.logoutBtn}> Logout</Text>
         </View>
       </TouchableOpacity>
+      <View style={SideMenuStyles.version}>
+        <Text>V1.0.0</Text>
+      </View>
     </View>
   );
 };
