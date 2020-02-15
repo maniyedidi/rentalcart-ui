@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Text, ScrollView, View, TouchableOpacity } from "react-native";
+import { Icon, Card, Header } from "react-native-elements";
 import { invokeApi } from "../../services/dataServices";
 import { DOMAIN_NAME, SHOP_ENDPOINTS } from "../../constants/endpoints";
-import { Card } from "react-native-elements";
 import { appStyles } from "../../appStyles";
 import { sellStyles } from "./styles";
 import Loader from "../../shared-components/loader";
-import HeaderBar from "../header";
-import { Icon } from "react-native-elements";
 import { storeData } from "../../services/storage.service";
+import HeaderMenu from "../header/menu";
 
 const Sell = props => {
   const [productsList, setProductsList] = useState([]);
@@ -21,7 +20,7 @@ const Sell = props => {
 
   const getProductsList = () => {
     setDataLoading(true);
-    invokeApi(`${DOMAIN_NAME}${SHOP_ENDPOINTS.PRODUCTS}`, "GET")
+    invokeApi(`${DOMAIN_NAME}${SHOP_ENDPOINTS.ITEMS}`, "GET")
       .then(data => {
         if (data.error) {
         } else {
@@ -39,7 +38,7 @@ const Sell = props => {
       orderedItems[item.id] = item;
       orderedItems[item.id]["count"] = 1;
     }
-    setOrderedItems({...orderedItems});
+    setOrderedItems({ ...orderedItems });
   };
 
   const removeItem = item => {
@@ -53,15 +52,26 @@ const Sell = props => {
         delete orderedItems[item.id];
       }
     }
-    setOrderedItems({...orderedItems});
+    setOrderedItems({ ...orderedItems });
   };
 
   const navToDetailsScreen = () => {
-    
-    
-    storeData("orderedItems", orderedItems).then((res) => {
+    storeData("orderedItems", orderedItems).then(res => {
       props.navigation.navigate("OrderCart");
     });
+  };
+
+  const cartComponent = () => {
+    return (
+      <TouchableOpacity onPress={navToDetailsScreen}>
+        <Icon
+          name="shopping-cart"
+          size={30}
+          color="white"
+          type="font-awesome"
+        />
+      </TouchableOpacity>
+    );
   };
 
   if (dataLoading) {
@@ -69,24 +79,13 @@ const Sell = props => {
   } else {
     return (
       <View style={sellStyles.onlineContainer}>
-        <View
-          style={{
-            height: 70,
-            backgroundColor: "#3D6CB9",
-            paddingTop: 5
-          }}
-        >
-          <HeaderBar navigation={props.navigation} title="Sell">
-            <TouchableOpacity onPress={navToDetailsScreen}>
-              <Icon
-                name="shopping-cart"
-                size={30}
-                color="white"
-                type="font-awesome"
-              />
-            </TouchableOpacity>
-          </HeaderBar>
-        </View>
+        <Header
+          backgroundColor="#3D6CB9"
+          placement="left"
+          leftComponent={<HeaderMenu navigation={props.navigation} />}
+          centerComponent={{ text: "Sell", style: { color: "#fff" } }}
+          rightComponent={cartComponent()}
+        />
         <View>
           {productsList.length === 0 ? (
             <View style={appStyles.noRecord}>

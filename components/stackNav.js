@@ -8,6 +8,8 @@ import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import Sell from "./sell";
 import OrderCart from "./order-cart";
 import Orders from "./orders";
+import CreateCategory from "./create-category";
+import CreateProduct from './create-product';
 
 const AppStack = createStackNavigator({
   Sell: {
@@ -36,6 +38,18 @@ const AppStack = createStackNavigator({
   },
   Online: {
     screen: OnlineScreen,
+    navigationOptions: {
+      header: null
+    }
+  },
+  CreateCategory: {
+    screen: CreateCategory,
+    navigationOptions: {
+      header: null
+    }
+  },
+  CreateProduct: {
+    screen: CreateProduct,
     navigationOptions: {
       header: null
     }

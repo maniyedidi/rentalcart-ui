@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Text, ScrollView, View, TouchableOpacity } from "react-native";
-import HeaderBar from "../header";
 import { invokeApi } from "../../services/dataServices";
 import { DOMAIN_NAME, SHOP_ENDPOINTS } from "../../constants/endpoints";
-import { Card, Icon } from "react-native-elements";
+import { Card, Icon, Header } from "react-native-elements";
 import { appStyles } from "../../appStyles";
 import { ordersStyles } from "./styles";
 import Loader from "../../shared-components/loader";
-import moment from "moment";
 import { viewDateFormat } from "../../utils";
+import HeaderMenu from "../header/menu";
 
 const Orders = props => {
   const [dataLoading, setDataLoading] = useState(false);
@@ -37,15 +36,12 @@ const Orders = props => {
   }
   return (
     <View style={ordersStyles.orderContainer}>
-      <View
-        style={{
-          height: 70,
-          backgroundColor: "#3D6CB9",
-          paddingTop: 5
-        }}
-      >
-        <HeaderBar navigation={navigation} title="Home"></HeaderBar>
-      </View>
+      <Header
+        backgroundColor="#3D6CB9"
+        placement="left"
+        leftComponent={<HeaderMenu navigation={navigation} />}
+        centerComponent={{ text: "Orders", style: { color: "#fff" } }}
+      />
       <View>
         {orderList.length === 0 ? (
           <View style={appStyles.noRecord}>

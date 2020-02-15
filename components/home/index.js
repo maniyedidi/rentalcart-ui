@@ -1,40 +1,71 @@
-import React, { useState } from "react";
-import { Text, View } from "react-native";
-import HeaderBar from "../header";
-import HomeTabs from "./home-tabs";
-import Categories from "../categories";
+import React from "react";
+import { View, TouchableOpacity, Text } from "react-native";
+import { Header, Icon } from "react-native-elements";
+import {
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger
+} from "react-native-popup-menu";
 import Products from "../products";
 import { homeStyles } from "./styles";
+import HeaderMenu from "../header/menu";
 
 const HomeScreen = props => {
-  const [activeTab, setActiveTab] = useState(0);
   const navigation = props.navigation;
+  constonMenuClick = () => {};
+
+  const productsMenuComponent = () => {
+    return (
+      <TouchableOpacity onPress={() => {}}>
+        <Menu>
+          <MenuTrigger>
+            <View>
+              <Icon
+                color="#fff"
+                name="plus-square"
+                size={30}
+                type="font-awesome"
+              />
+            </View>
+          </MenuTrigger>
+          <MenuOptions>
+            <MenuOption onSelect={() => navigation.navigate("CreateProduct")}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Text
+                  style={{ fontSize: 15, fontWeight: "bold", paddingLeft: 5 }}
+                >
+                  Create Items
+                </Text>
+              </View>
+            </MenuOption>
+            <MenuOption onSelect={() => navigation.navigate("CreateCategory")}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Text
+                  style={{ fontSize: 15, fontWeight: "bold", paddingLeft: 5 }}
+                >
+                  Create Category
+                </Text>
+              </View>
+            </MenuOption>
+          </MenuOptions>
+        </Menu>
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <View style={homeStyles.homeContainer}>
-      <View
-        style={{
-          height: 70,
-          backgroundColor: "#3D6CB9",
-          paddingTop: 5
-        }}
-      >
-        <HeaderBar navigation={navigation} title="Home">         
-        </HeaderBar>
-      </View>
-      <View
-        style={{
-          height: 45,
-          backgroundColor: "#3D6CB9",          
-        }}
-      >
-      <HomeTabs
-        activeTab={activeTab}
-        setActiveTab={index => setActiveTab(index)}
+      <Header
+        backgroundColor="#3D6CB9"
+        placement="left"
+        leftComponent={<HeaderMenu navigation={navigation} />}
+        centerComponent={{ text: "Home", style: { color: "#fff" } }}
+        rightComponent={productsMenuComponent()}
       />
+      <View>
+        <Products />
       </View>
-      
-      <View>{activeTab === 0 ? <Categories /> : <Products />}</View>
     </View>
   );
 };

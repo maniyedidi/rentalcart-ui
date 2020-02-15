@@ -1,74 +1,63 @@
-import React, { Component } from "react";
-import { Text, ScrollView, View, TouchableOpacity } from "react-native";
+import React, { useState, useEffect } from "react";
+import { Text, ScrollView, View } from "react-native";
+import { Card } from "react-native-elements";
 import { invokeApi } from "../../services/dataServices";
 import { DOMAIN_NAME, SHOP_ENDPOINTS } from "../../constants/endpoints";
-import { Card } from "react-native-elements";
 import { appStyles } from "../../appStyles";
 import { onlineOrderStyles } from "./styles";
 import Loader from "../../shared-components/loader";
 
-class Products extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      categoryList: []
-    };
-  }
+const Products = props => {
+  const [itemList, setCategoryList] = useState([]);
+  const [dataLoading, setDataLoading] = useState([]);
 
-  componentDidMount() {
-    this.getCategory();
-  }
+  useEffect(() => {
+    getProducts();
+  }, []);
 
-  getCategory = () => {
-    this.setState({ dataLoading: true });
-    invokeApi(`${DOMAIN_NAME}${SHOP_ENDPOINTS.CATEGORIES}`, "GET")
+  getProducts = () => {
+    setDataLoading(true);
+    invokeApi(`${DOMAIN_NAME}${SHOP_ENDPOINTS.ITEMS}`, "GET")
       .then(data => {
         if (data.error) {
         } else {
-          this.setState({
-            categoryList: data || [],
-            dataLoading: false
-          });
+          setCategoryList(data || []);
+          setDataLoading(false);
         }
       })
-      .catch(() => this.setState({ dataLoading: false }));
+      .catch(() => setDataLoading(false));
   };
 
-  render() {
-    const { dataLoading, categoryList } = this.state;
-    if (dataLoading) {
-      return <Loader />;
-    }
-    return (
-      <View style={onlineOrderStyles.onlineContainer}>
-        <View>
-          {categoryList.length === 0 ? (
-            <View style={appStyles.noRecord}>
-              <Text>No Categories found</Text>
-            </View>
-          ) : (
-            <ScrollView>
-              {categoryList.map(category => {
-                return (
-                  <Card containerStyle={{ margin: 0 }} key={category.id}>
-                    <View style={onlineOrderStyles.orderItem}>
-                      <View style={onlineOrderStyles.orderId}>
-                        <Text>{category.name}</Text>
-                        <Text>{category.description}</Text>
-                      </View>
-                      <View style={onlineOrderStyles.orderId}>
-                       
-                      </View>
-                    </View>
-                  </Card>
-                );
-              })}
-            </ScrollView>
-          )}
-        </View>
-      </View>
-    );
+  if (dataLoading) {
+    return <Loader />;
   }
-}
+  return (
+    <View style={onlineOrderStyles.onlineContainer}>
+      <View>
+        {itemList.length === 0 ? (
+          <View style={appStyles.noRecord}>
+            <Text>No Categories found</Text>
+          </View>
+        ) : (
+          <ScrollView>
+            {itemList.map(category => {
+              return (
+                <Card containerStyle={{ margin: 0 }} key={category.id}>
+                  <View style={onlineOrderStyles.orderItem}>
+                    <View style={onlineOrderStyles.orderId}>
+                      <Text>{category.name}</Text>
+                      <Text>{category.description}</Text>
+                    </View>
+                    <View style={onlineOrderStyles.orderId}></View>
+                  </View>
+                </Card>
+              );
+            })}
+          </ScrollView>
+        )}
+      </View>
+    </View>
+  );
+};
 
 export default Products;

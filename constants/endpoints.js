@@ -1,10 +1,12 @@
 export const SHOP_ENDPOINTS = {
     LOGIN: 'rentalcart/api/login',
     CATEGORIES: 'rentalcart/api/categoryList',
-    PRODUCTS: 'rentalcart/api/itemList',
+    ITEMS: 'rentalcart/api/itemList',
     CREATE_ORDER:'rentalcart/api/createOrder',
     ORDERS:"rentalcart/api/orders",
     PUSH_TOKENS: "pushToken",
+    CREATE_CATEGORY:"rentalcart/api/createCategory",
+    CREATE_ITEM:"rentalcart/api/createItem",
 
 
     GETSHOP: 'core/restaurant/get/',
