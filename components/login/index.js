@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, TextInput, View } from "react-native";
+import { Text, TextInput, View, TouchableOpacity } from "react-native";
 import { Button, Header, Card } from "react-native-elements";
 import { DOMAIN_NAME, SHOP_ENDPOINTS } from "../../constants/endpoints";
 import { storeData, retrieveData } from "../../services/storage.service";
@@ -72,7 +72,7 @@ const Login = props => {
         placement="left"
         leftComponent={{
           text: "Rentalcart",
-          style: { color: "#fff" }
+          style: { color: "#fff", fontSize:16 }
         }}
       />
       <Card>
@@ -98,6 +98,11 @@ const Login = props => {
           title="Login"
         />
         <Text style={{ color: "red" }}>{errorMsg}</Text>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate("SignupScreen")}
+        >
+          <Text style={appStyles.link}>Create an account for login</Text>
+        </TouchableOpacity>
       </Card>
     </View>
   );
