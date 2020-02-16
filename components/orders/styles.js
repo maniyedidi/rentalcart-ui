@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 export const ordersStyles = StyleSheet.create({
   orderContainer: {
     fontSize: 12, 
+    flex:10
   },
   orderItem: {
     flex: 10,

@@ -39,11 +39,11 @@ const Products = props => {
   };
 
   return (
-    <View style={onlineOrderStyles.onlineContainer}>
+    <View style={onlineOrderStyles.productsContainer}>
       <View>
         {itemList.length === 0 ? (
           <View style={appStyles.noRecord}>
-            <Text>No Categories found</Text>
+            <Text>No Products found</Text>
           </View>
         ) : (
           <ScrollView

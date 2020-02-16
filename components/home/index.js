@@ -64,14 +64,17 @@ const HomeScreen = props => {
 
   return (
     <View style={homeStyles.homeContainer}>
-      <Header
-        backgroundColor="#3D6CB9"
-        placement="left"
-        leftComponent={<MenuIcon navigation={navigation} />}
-        centerComponent={{ text: "Home", style: { color: "#fff" } }}
-        rightComponent={goToCreateItems()}
-      />
-      <View>
+      <View style={{ flex: 1 }}>
+        <Header
+          backgroundColor="#3D6CB9"
+          placement="left"
+          leftComponent={<MenuIcon navigation={navigation} />}
+          centerComponent={{ text: "Home", style: { color: "#fff" } }}
+          rightComponent={goToCreateItems()}
+        />
+      </View>
+
+      <View style={{ flex: 9 }}>
         <Products />
       </View>
     </View>

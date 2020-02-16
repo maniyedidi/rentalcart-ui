@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 export const onlineOrderStyles = StyleSheet.create({
-  onlineContainer: {
+  productsContainer: {
     fontSize: 12, 
   },
   orderItem: {

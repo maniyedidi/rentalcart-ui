@@ -91,18 +91,21 @@ const Sell = props => {
   };
 
   return (
-    <View style={sellStyles.onlineContainer}>
-      <Header
-        backgroundColor="#3D6CB9"
-        placement="left"
-        leftComponent={<MenuIcon navigation={props.navigation} />}
-        centerComponent={{ text: "Sell", style: { color: "#fff" } }}
-        rightComponent={cartComponent()}
-      />
+    <View style={sellStyles.sellContainer}>
+      <View style={{ flex: 1 }}>
+        <Header
+          backgroundColor="#3D6CB9"
+          placement="left"
+          leftComponent={<MenuIcon navigation={props.navigation} />}
+          centerComponent={{ text: "Sell", style: { color: "#fff" } }}
+          rightComponent={cartComponent()}
+        />
+      </View>
+
       {dataLoading ? (
         <Loader />
       ) : (
-        <View>
+        <View style={{ flex: 9 }}>
           {productsList.length === 0 ? (
             <View style={appStyles.noRecord}>
               <Text>No Product found</Text>

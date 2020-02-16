@@ -1,10 +1,11 @@
 import { StyleSheet } from "react-native";
 export const sellStyles = StyleSheet.create({
-  onlineContainer: {
-    fontSize: 12, 
+  sellContainer: {
+    fontSize: 12,  
+    flex:10  
   },
   orderItemRow: {
-    flex: 5,
+    // flex: 5,
     flexDirection: "row",
     justifyContent: "space-between"
   },

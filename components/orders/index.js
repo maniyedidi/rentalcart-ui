@@ -50,23 +50,26 @@ const Orders = props => {
 
   return (
     <View style={ordersStyles.orderContainer}>
-      <Header
-        backgroundColor="#3D6CB9"
-        placement="left"
-        leftComponent={<MenuIcon navigation={navigation} />}
-        centerComponent={{ text: "Orders", style: { color: "#fff" } }}
-      />
+      <View style={{ flex: 1 }}>
+        <Header
+          backgroundColor="#3D6CB9"
+          placement="left"
+          leftComponent={<MenuIcon navigation={navigation} />}
+          centerComponent={{ text: "Orders", style: { color: "#fff" } }}
+        />
+      </View>
 
       {dataLoading ? (
         <Loader />
       ) : (
-        <View>
+        <View style={{ flex: 9 }}>
           {orderList.length === 0 ? (
             <View style={appStyles.noRecord}>
               <Text>No Categories found</Text>
             </View>
           ) : (
             <ScrollView
+              contentContainerStyle={{ flexGrow: 1 }}
               refreshControl={
                 <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
               }
