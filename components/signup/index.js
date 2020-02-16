@@ -6,35 +6,92 @@ import Loader from "../../shared-components/loader";
 import { appStyles } from "../../appStyles";
 
 const Singup = props => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [contact, setContact] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [shopName, setShopname] = useState("");
+  const [userDetails, setUserDetails] = useState({
+    userId: Date.now().toString(),
+    firstName: "",
+    lastName: "",
+    contact: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    shopName: "",
+    accountType: "USER"
+  });
+
+  const [errorDetails, setErrorDetails] = useState({
+    firstNameErr: false,
+    contactErr: false,
+    emailErr: false,
+    passwordErr: false,
+    shopNameErr: false,
+    confirmPasswordErr: false
+  });
+
+  onInputTextChange = (value, dataLabel) => {
+    setUserDetails({
+      ...userDetails,
+      [dataLabel]: value
+    });
+    setErrorDetails({
+      ...errorDetails,
+      [dataLabel + "Err"]: false
+    });
+  };
 
   const [loggingIn, setLoggingIn] = useState(false);
-  const [erroFlag, setErroFlag] = useState(false);
-  const [errorMsg, setErrorMessage] = useState("");
   const [accountFlag, setAccountFlag] = useState(false);
 
-  const createUser = () => {
-    let reqBody = {
-      userId: Date.now().toString(),
-      firstName: firstName,
-      lastName: lastName,
-      contact: contact,
-      email: email,
-      password: password,
-      accountType: "USER",
-      shopName: shopName
+  isFormValid = () => {
+    let errors = {
+      firstNameErr: false,
+      contactErr: false,
+      emailErr: false,
+      passwordErr: false,
+      shopNameErr: false,
+      confirmPasswordErr: false
     };
+    if (!userDetails.firstName) {
+      errors.firstNameErr = true;
+    }
+    if (!userDetails.contact) {
+      errors.contactErr = true;
+    }
+
+    if (!userDetails.email) {
+      errors.email = true;
+    }
+
+    if (!userDetails.password) {
+      errors.passwordErr = true;
+    }
+    if (!userDetails.shopName) {
+      errors.shopNameErr = true;
+    }
+    if (userDetails.password !== userDetails.confirmPassword) {
+      errors.confirmPasswordErr = true;
+    }
+
+    if (
+      errors.firstNameErr ||
+      errors.contactErr ||
+      errors.passwordErr ||
+      errors.shopNameErr ||
+      errors.confirmPasswordErr
+    ) {
+      setErrorDetails(errors);
+      return;
+    } else {
+      createUser();
+    }
+  };
+
+  const createUser = () => {
+    console.log("userDetails", userDetails);
     const headers = { "Content-Type": "application/json" };
     const requestOptions = {
       method: "POST",
       headers: headers,
-      body: JSON.stringify(reqBody)
+      body: JSON.stringify(userDetails)
     };
     setLoggingIn(true);
 
@@ -66,7 +123,7 @@ const Singup = props => {
         placement="left"
         leftComponent={{
           text: "Create rentalcart account",
-          style: { color: "#fff", fontSize:16 }
+          style: { color: "#fff", fontSize: 16 }
         }}
       />
       {accountFlag ? (
@@ -76,10 +133,12 @@ const Singup = props => {
             alignItems: "center"
           }}
         >
-          <Text style={{
-            fontSize:16
-          }}>{`A verification email has been sent to ${email}.`}</Text>
-         <TouchableOpacity onPress={() => props.navigation.navigate("Login")}>
+          <Text
+            style={{
+              fontSize: 16
+            }}
+          >{`A verification email has been sent to ${userDetails.email}.`}</Text>
+          <TouchableOpacity onPress={() => props.navigation.navigate("Login")}>
             <Text style={appStyles.link}> I hava account to login</Text>
           </TouchableOpacity>
         </View>
@@ -88,55 +147,74 @@ const Singup = props => {
           <TextInput
             style={appStyles.input}
             placeholder="First Name"
-            onChangeText={value => setFirstName(value)}
-            value={firstName}
+            onChangeText={value => onInputTextChange(value, "firstName")}
+            value={userDetails.firstName}
           />
+          {errorDetails.firstNameErr && (
+            <Text style={{ color: "red" }}>Required</Text>
+          )}
           <TextInput
             style={appStyles.input}
             placeholder="Last Name"
-            onChangeText={value => setLastName(value)}
-            value={lastName}
+            onChangeText={value => onInputTextChange(value, "lastName")}
+            value={userDetails.lastName}
           />
           <TextInput
             style={appStyles.input}
             placeholder="Contact"
-            onChangeText={value => setContact(value)}
-            value={contact}
+            onChangeText={value => onInputTextChange(value, "contact")}
+            value={userDetails.contact}
             keyboardType="number-pad"
           />
+          {errorDetails.contactErr && (
+            <Text style={{ color: "red" }}>Required</Text>
+          )}
           <TextInput
             style={appStyles.input}
             placeholder="Shop Name"
-            onChangeText={value => setShopname(value)}
-            value={shopName}
+            onChangeText={value => onInputTextChange(value, "shopName")}
+            value={userDetails.shopName}
           />
+          {errorDetails.shopNameErr && (
+            <Text style={{ color: "red" }}>Required</Text>
+          )}
           <TextInput
             style={appStyles.input}
             placeholder="Email Id"
-            onChangeText={value => setEmail(value)}
-            value={email}
+            onChangeText={value => onInputTextChange(value, "email")}
+            value={userDetails.email}
           />
+          {errorDetails.emailErr && (
+            <Text style={{ color: "red" }}>Required</Text>
+          )}
           <TextInput
             style={appStyles.input}
             placeholder="Password"
             secureTextEntry={true}
-            onChangeText={value => setPassword(value)}
-            value={password}
+            onChangeText={value => onInputTextChange(value, "password")}
+            value={userDetails.password}
           />
+          {errorDetails.passwordErr && (
+            <Text style={{ color: "red" }}>Required</Text>
+          )}
           <TextInput
             style={appStyles.input}
             placeholder="Confirm Password"
             secureTextEntry={true}
-            onChangeText={value => setConfirmPassword(value)}
-            value={confirmPassword}
+            onChangeText={value => onInputTextChange(value, "confirmPassword")}
+            value={userDetails.confirmPassword}
           />
+          {errorDetails.confirmPasswordErr && (
+            <Text style={{ color: "red" }}>
+              password and confirm password not same
+            </Text>
+          )}
           <View style={{ margin: 7 }} />
           <Button
             buttonStyle={appStyles.primarybtn}
-            onPress={createUser}
+            onPress={isFormValid}
             title="Create user"
           />
-          <Text style={{ color: "red" }}>{errorMsg}</Text>
           <TouchableOpacity onPress={() => props.navigation.navigate("Login")}>
             <Text style={appStyles.link}> I hava account to login</Text>
           </TouchableOpacity>

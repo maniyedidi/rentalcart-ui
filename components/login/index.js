@@ -60,6 +60,14 @@ const Login = props => {
     if (response.status === 401) {
       setErroFlag(true);
     }
+    if (response.status === 404) {
+      setErroFlag(true);
+      setErrorMessage("Invalid username and password")
+    }
+    if (response.status === 403) {
+      setErroFlag(true);
+      setErrorMessage("Your email id is not verified")
+    }
     return response.json();
   };
 

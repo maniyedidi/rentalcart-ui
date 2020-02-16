@@ -1,5 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Text, ScrollView, View, TouchableOpacity } from "react-native";
+import React, { useState, useEffect, useCallback } from "react";
+import {
+  Text,
+  ScrollView,
+  View,
+  TouchableOpacity,
+  RefreshControl
+} from "react-native";
 import { Icon, Card, Header } from "react-native-elements";
 import { invokeApi } from "../../services/dataServices";
 import { DOMAIN_NAME, SHOP_ENDPOINTS } from "../../constants/endpoints";
@@ -13,10 +19,16 @@ const Sell = props => {
   const [productsList, setProductsList] = useState([]);
   const [orderedItems, setOrderedItems] = useState({});
   const [dataLoading, setDataLoading] = useState({});
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     getProductsList();
   }, []);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    getProductsList();
+  }, [refreshing]);
 
   const getProductsList = () => {
     setDataLoading(true);
@@ -25,10 +37,14 @@ const Sell = props => {
         if (data.error) {
         } else {
           setDataLoading(false);
+          setRefreshing(false);
           setProductsList(data || []);
         }
       })
-      .catch(() => setDataLoading(false));
+      .catch(() => {
+        setRefreshing(false);
+        setDataLoading(false);
+      });
   };
 
   const addItem = item => {
@@ -74,25 +90,29 @@ const Sell = props => {
     );
   };
 
-  if (dataLoading) {
-    return <Loader />;
-  } else {
-    return (
-      <View style={sellStyles.onlineContainer}>
-        <Header
-          backgroundColor="#3D6CB9"
-          placement="left"
-          leftComponent={<MenuIcon navigation={props.navigation} />}
-          centerComponent={{ text: "Sell", style: { color: "#fff" } }}
-          rightComponent={cartComponent()}
-        />
+  return (
+    <View style={sellStyles.onlineContainer}>
+      <Header
+        backgroundColor="#3D6CB9"
+        placement="left"
+        leftComponent={<MenuIcon navigation={props.navigation} />}
+        centerComponent={{ text: "Sell", style: { color: "#fff" } }}
+        rightComponent={cartComponent()}
+      />
+      {dataLoading ? (
+        <Loader />
+      ) : (
         <View>
           {productsList.length === 0 ? (
             <View style={appStyles.noRecord}>
               <Text>No Product found</Text>
             </View>
           ) : (
-            <ScrollView>
+            <ScrollView
+              refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+              }
+            >
               {productsList.map(product => {
                 return (
                   <Card containerStyle={{ margin: 0 }} key={product.id}>
@@ -142,9 +162,9 @@ const Sell = props => {
             </ScrollView>
           )}
         </View>
-      </View>
-    );
-  }
+      )}
+    </View>
+  );
 };
 
 export default Sell;

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Text, ScrollView, View } from "react-native";
+import React, { useState, useEffect, useCallback } from "react";
+import { Text, ScrollView, View, RefreshControl } from "react-native";
 import { Card } from "react-native-elements";
 import { invokeApi } from "../../services/dataServices";
 import { DOMAIN_NAME, SHOP_ENDPOINTS } from "../../constants/endpoints";
@@ -10,6 +10,12 @@ import Loader from "../../shared-components/loader";
 const Products = props => {
   const [itemList, setCategoryList] = useState([]);
   const [dataLoading, setDataLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    getProducts();
+  }, [refreshing]);
 
   useEffect(() => {
     getProducts();
@@ -23,14 +29,15 @@ const Products = props => {
         } else {
           setCategoryList(data || []);
           setDataLoading(false);
+          setRefreshing(false);
         }
       })
-      .catch(() => setDataLoading(false));
+      .catch(() => {
+        setRefreshing(false);
+        setDataLoading(false);
+      });
   };
 
-  if (dataLoading) {
-    return <Loader />;
-  }
   return (
     <View style={onlineOrderStyles.onlineContainer}>
       <View>
@@ -39,7 +46,11 @@ const Products = props => {
             <Text>No Categories found</Text>
           </View>
         ) : (
-          <ScrollView>
+          <ScrollView
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+          >
             {itemList.map(category => {
               return (
                 <Card containerStyle={{ margin: 0 }} key={category.id}>

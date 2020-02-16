@@ -1,5 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Text, ScrollView, View, TouchableOpacity } from "react-native";
+import React, { useState, useEffect, useCallback } from "react";
+import {
+  Text,
+  ScrollView,
+  View,
+  TouchableOpacity,
+  RefreshControl
+} from "react-native";
 import { invokeApi } from "../../services/dataServices";
 import { DOMAIN_NAME, SHOP_ENDPOINTS } from "../../constants/endpoints";
 import { Card, Icon, Header } from "react-native-elements";
@@ -12,23 +18,34 @@ import MenuIcon from "../../shared-components/header-menu";
 const Orders = props => {
   const [dataLoading, setDataLoading] = useState(false);
   const [orderList, setOrderList] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
   const navigation = props.navigation;
 
   useEffect(() => {
     getOrders();
   }, []);
 
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    getOrders();
+  }, [refreshing]);
+
   const getOrders = () => {
     setDataLoading(true);
     invokeApi(`${DOMAIN_NAME}${SHOP_ENDPOINTS.ORDERS}`, "GET")
       .then(data => {
         setDataLoading(false);
+
         if (data.error) {
         } else {
           setOrderList(data);
+          setRefreshing(false);
         }
       })
-      .catch(() => setDataLoading(false));
+      .catch(() => {
+        setDataLoading(false);
+        setRefreshing(false);
+      });
   };
 
   return (
@@ -49,7 +66,11 @@ const Orders = props => {
               <Text>No Categories found</Text>
             </View>
           ) : (
-            <ScrollView>
+            <ScrollView
+              refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+              }
+            >
               {orderList.map(order => {
                 let customer =
                   (order.customerdetails &&
