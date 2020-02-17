@@ -7,7 +7,7 @@ import Sell from "./sell";
 import OrderCart from "./order-cart";
 import Orders from "./orders";
 import CreateCategory from "./create-category";
-import CreateProduct from './create-product';
+import CreateProduct from "./create-product";
 import Singup from "./signup";
 
 const AppStack = createStackNavigator({
@@ -20,7 +20,11 @@ const AppStack = createStackNavigator({
   OrderCart: {
     screen: OrderCart,
     navigationOptions: () => ({
-      title: "Order Detail"
+      title: "Order Detail",
+      headerStyle: {
+        backgroundColor: "#3D6CB9"
+      },
+      headerTintColor: "#fff"
     })
   },
   Orders: {
@@ -37,15 +41,23 @@ const AppStack = createStackNavigator({
   },
   CreateCategory: {
     screen: CreateCategory,
-    navigationOptions: {
-      header: null
-    }
+    navigationOptions: () => ({
+      title: "Create category",
+      headerStyle: {
+        backgroundColor: "#3D6CB9"
+      },
+      headerTintColor: "#fff"
+    })
   },
   CreateProduct: {
     screen: CreateProduct,
-    navigationOptions: {
-      header: null
-    }
+    navigationOptions: () => ({
+      title: "Create item",
+      headerStyle: {
+        backgroundColor: "#3D6CB9"
+      },
+      headerTintColor: "#fff"
+    })
   },
   SignupScreen: {
     screen: Singup,

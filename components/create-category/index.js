@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Text, TextInput, View } from "react-native";
-import { Button, Header,Card } from "react-native-elements";
+import { Button, Card } from "react-native-elements";
 import { appStyles } from "../../appStyles";
 import { invokeApi } from "../../services/dataServices";
 import { SHOP_ENDPOINTS, DOMAIN_NAME } from "../../constants/endpoints";
-import MenuIcon from "../../shared-components/header-menu";
 
 const CreateCategory = props => {
   const navigation = props.navigation;
@@ -19,24 +18,13 @@ const CreateCategory = props => {
       description: description
     })
       .then(data => {
-        props.navigation.navigate("Home");
+        navigation.navigate("Home");
       })
       .catch(() => {});
   };
 
   return (
     <View>
-      <View>
-        <Header
-          backgroundColor="#3D6CB9"
-          placement="left"
-          leftComponent={<MenuIcon navigation={navigation} />}
-          centerComponent={{
-            text: "Create Category",
-            style: { color: "#fff" }
-          }}
-        />
-      </View>
       <Card>
         <TextInput
           style={appStyles.input}

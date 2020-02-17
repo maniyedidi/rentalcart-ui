@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Text, TextInput, View } from "react-native";
-import { Button, Header, Card } from "react-native-elements";
+import { Button, Card } from "react-native-elements";
 import { appStyles } from "../../appStyles";
 import { SHOP_ENDPOINTS, DOMAIN_NAME } from "../../constants/endpoints";
 import { invokeApi } from "../../services/dataServices";
-import MenuIcon from "../../shared-components/header-menu";
 
 const CreateProduct = props => {
   const navigation = props.navigation;
@@ -26,9 +25,9 @@ const CreateProduct = props => {
       categoryId: categoryId
     };
     invokeApi(`${DOMAIN_NAME}${SHOP_ENDPOINTS.CREATE_ITEM}`, "POST", payload)
-      .then(data => { 
+      .then(data => {
         if (data.id) {
-          props.navigation.navigate("Home");
+          navigation.navigate("Home");
         } else {
         }
       })
@@ -37,14 +36,6 @@ const CreateProduct = props => {
 
   return (
     <View>
-      <View>
-        <Header
-          backgroundColor="#3D6CB9"
-          placement="left"
-          leftComponent={<MenuIcon navigation={navigation} />}
-          centerComponent={{ text: "Create Product", style: { color: "#fff" } }}
-        />
-      </View>
       <Card>
         <TextInput
           style={appStyles.input}
@@ -68,7 +59,7 @@ const CreateProduct = props => {
         <TextInput
           style={appStyles.input}
           placeholder="Item Price"
-          keyboardType="number-pad"          
+          keyboardType="number-pad"
           onChangeText={value => setAmount(+value)}
           value={amount}
         />
