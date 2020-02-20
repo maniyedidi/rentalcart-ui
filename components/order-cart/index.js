@@ -43,7 +43,7 @@ const OrderCart = props => {
       items.push(orderedItems[id]);
     });
     customerdetails["id"] = customerdetails.contact;
-
+    
     const payload = {
       id: Date.now(),
       customer: customerdetails,

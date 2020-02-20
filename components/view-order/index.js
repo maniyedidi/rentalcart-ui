@@ -25,8 +25,12 @@ const ViewOrder = props => {
                 <Text style={orderCartStyles.col2}>
                   {order.amount || "0.00"}
                 </Text>
-                <Text style={orderCartStyles.col3}>{order.count || "0"}</Text>
-                <Text style={orderCartStyles.col4}>{order.count * 1}</Text>
+                <Text style={orderCartStyles.col3}>
+                  {order.orderCount || "0"}
+                </Text>
+                <Text style={orderCartStyles.col4}>
+                  {order.orderCount * order.amount}
+                </Text>
               </View>
             );
           })}
@@ -35,9 +39,12 @@ const ViewOrder = props => {
           </View>
         </Card>
         <Card containerStyle={{ margin: 0 }}>
-         <View>
-           <Text>Customer Name :{  }</Text>
-         </View>
+          <View>
+            <Text>Customer Details</Text>
+            <Text> Name :{customerdetails.firstName}</Text>
+            <Text>Mobile :{customerdetails.contact}</Text>
+            <Text>Address:{customerdetails.address}</Text>
+          </View>
         </Card>
       </ScrollView>
     </View>
