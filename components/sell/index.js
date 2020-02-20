@@ -4,7 +4,8 @@ import {
   ScrollView,
   View,
   TouchableOpacity,
-  RefreshControl
+  RefreshControl,
+  TextInput
 } from "react-native";
 import { Icon, Card, Header } from "react-native-elements";
 import { invokeApi } from "../../services/dataServices";
@@ -90,6 +91,16 @@ const Sell = props => {
     );
   };
 
+  const onInputChange = (value, item) => {
+    if (orderedItems && orderedItems[item.id]) {
+      orderedItems[item.id]["orderCount"] = value;
+    } else {
+      orderedItems[item.id] = item;
+      orderedItems[item.id]["orderCount"] = value;
+    }
+    setOrderedItems({ ...orderedItems });
+  };
+
   return (
     <View style={sellStyles.sellContainer}>
       <View style={{ flex: 1 }}>
@@ -135,25 +146,37 @@ const Sell = props => {
                         </Text>
                       </View>
                       <View style={sellStyles.addRemoveBtns}>
-                        <TouchableOpacity onPress={() => addItem(product)}>
+                        <TouchableOpacity
+                          style={sellStyles.countBtn}
+                          onPress={() => addItem(product)}
+                        >
                           <Icon
-                            name="plus-square"
-                            size={30}
-                            color="#00D1FF"
+                            name="plus"
+                            size={24}
+                            color="white"
                             type="font-awesome"
                           />
                         </TouchableOpacity>
-                        <Text>
-                          {(orderedItems &&
-                            orderedItems[product.id] &&
-                            orderedItems[product.id].orderCount) ||
-                            0}{" "}
-                        </Text>
-                        <TouchableOpacity onPress={() => removeItem(product)}>
+                        <TextInput
+                          style={{ textAlign:"center",height:25, width:60 }}
+                          placeholder="Count"
+                          keyboardType="number-pad"
+                          onChangeText={value => onInputChange(+value, product)}
+                          value={
+                            (orderedItems &&
+                              orderedItems[product.id] &&
+                              `${orderedItems[product.id].orderCount}`) || "0"
+                          }
+                        />
+
+                        <TouchableOpacity
+                          style={sellStyles.countBtn}
+                          onPress={() => removeItem(product)}
+                        >
                           <Icon
-                            name="minus-square"
-                            size={30}
-                            color="#00D1FF"
+                            name="minus"
+                            size={24}
+                            color="white"
                             type="font-awesome"
                           />
                         </TouchableOpacity>

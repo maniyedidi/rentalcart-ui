@@ -4,6 +4,8 @@ export const RIGHT_MENU = [{
     title: 'Sell',
 }, {
     title: 'Orders',
+},{
+    title: 'Reports',
 }];
 
 export const PAYMENTOPTIOMS = ['CASH', 'CARD'];

@@ -9,6 +9,7 @@ import Orders from "./orders";
 import CreateCategory from "./create-category";
 import CreateProduct from "./create-product";
 import Singup from "./signup";
+import ReportsScreen from "./report";
 
 const AppStack = createStackNavigator({
   Sell: {
@@ -35,6 +36,12 @@ const AppStack = createStackNavigator({
   },
   Home: {
     screen: HomeScreen,
+    navigationOptions: {
+      header: null
+    }
+  },
+  Reports: {
+    screen: ReportsScreen,
     navigationOptions: {
       header: null
     }
