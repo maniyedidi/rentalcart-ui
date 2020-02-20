@@ -39,12 +39,14 @@ const ViewOrder = props => {
           </View>
         </Card>
         <Card containerStyle={{ margin: 0 }}>
-          <View>
-            <Text>Customer Details</Text>
-            <Text> Name :{customerdetails.firstName}</Text>
-            <Text>Mobile :{customerdetails.contact}</Text>
-            <Text>Address:{customerdetails.address}</Text>
-          </View>
+          {(orderDetails.customerdetails || []).length > 0 && (
+            <View>
+              <Text>Customer Details</Text>
+              <Text>Name : {orderDetails.customerdetails[0].firstName}</Text>
+              <Text>Mobile : {orderDetails.customerdetails[0].contact}</Text>
+              <Text>Address: {orderDetails.customerdetails[0].address}</Text>
+            </View>
+          )}
         </Card>
       </ScrollView>
     </View>

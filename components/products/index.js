@@ -120,7 +120,6 @@ const Products = props => {
                         Price : {item.amount}
                       </Text>
                     </View>
-
                     <View style={onlineOrderStyles.actions}>
                       <TouchableOpacity onPress={() => editProduct(item)}>
                         <Icon
@@ -130,14 +129,14 @@ const Products = props => {
                           color="#0A4BB5"
                         />
                       </TouchableOpacity>
-                      <TouchableOpacity onPress={() => deleteProduct(item)}>
+                      {/* <TouchableOpacity onPress={() => deleteProduct(item)}>
                         <Icon
                           name="trash"
                           size={30}
                           type="font-awesome"
                           color="red"
                         />
-                      </TouchableOpacity>
+                      </TouchableOpacity> */}
                     </View>
                   </View>
                 </Card>
