@@ -48,6 +48,12 @@ const Orders = props => {
       });
   };
 
+  const viewOrder = order => {
+    navigation.navigate("ViewOrder", {
+      order: order
+    });
+  };
+
   return (
     <View style={ordersStyles.orderContainer}>
       <View style={{ flex: 1 }}>
@@ -107,7 +113,7 @@ const Orders = props => {
                         <Text style={ordersStyles.amount}>
                           Amount {order.amount || "0"}
                         </Text>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => viewOrder(order)}>
                           <Text style={appStyles.link}>View more</Text>
                         </TouchableOpacity>
                       </View>

@@ -48,10 +48,14 @@ const Login = props => {
     fetch(`${DOMAIN_NAME}${SHOP_ENDPOINTS.LOGIN}`, requestOptions)
       .then(handleResponse)
       .then(user => {
-        storeData("user", user).then(token => {
-          props.navigation.navigate("Sell");
+        if (user.type === "error") {
           setLoggingIn(false);
-        });
+        } else {
+          storeData("user", user).then(token => {
+            props.navigation.navigate("Sell");
+            setLoggingIn(false);
+          });
+        }
       })
       .catch(() => setLoggingIn(false));
   };
@@ -59,16 +63,16 @@ const Login = props => {
   const handleResponse = response => {
     if (response.status === 401) {
       setErroFlag(true);
-    }
-    if (response.status === 404) {
+    } else if (response.status === 404) {
       setErroFlag(true);
-      setErrorMessage("Invalid username and password")
-    }
-    if (response.status === 403) {
+      setErrorMessage("Invalid username and password");
+    } else if (response.status === 403) {
       setErroFlag(true);
-      setErrorMessage("Your email id is not verified")
+      setErrorMessage("Your email id is not verified");
+    } else {
+      return response.json();
     }
-    return response.json();
+    return { type: "error" };
   };
 
   return loggingIn ? (
@@ -80,7 +84,7 @@ const Login = props => {
         placement="left"
         leftComponent={{
           text: "Rentalcart",
-          style: { color: "#fff", fontSize:16 }
+          style: { color: "#fff", fontSize: 16 }
         }}
       />
       <Card>
