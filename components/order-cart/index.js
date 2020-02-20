@@ -24,7 +24,7 @@ const OrderCart = props => {
         let items = JSON.parse(response || "{}");
         let amount = 0;
         Object.keys(items).forEach(id => {
-          amount = amount + items[id].count * items[id].amount;
+          amount = amount + items[id].orderCount * items[id].amount;
         });
         setBillAmount(amount);
         setOrderedItems(items);
@@ -39,7 +39,7 @@ const OrderCart = props => {
     setDataLoading(true);
 
     Object.keys(orderedItems).forEach(id => {
-      amount = amount + orderedItems[id].count * orderedItems[id].amount;
+      amount = amount + orderedItems[id].orderCount * orderedItems[id].amount;
       items.push(orderedItems[id]);
     });
     customerdetails["id"] = customerdetails.contact;
@@ -145,12 +145,12 @@ const OrderCart = props => {
                     {orderedItems[id].amount || "0.00"}
                   </Text>
                   <Text style={orderCartStyles.col3}>
-                    {orderedItems && orderedItems[id] && orderedItems[id].count}
+                    {orderedItems && orderedItems[id] && orderedItems[id].orderCount}
                   </Text>
                   <Text style={orderCartStyles.col4}>
                     {orderedItems &&
                       orderedItems[id] &&
-                      orderedItems[id].count * orderedItems[id].amount}
+                      orderedItems[id].orderCount * orderedItems[id].amount}
                   </Text>
                 </View>
               );

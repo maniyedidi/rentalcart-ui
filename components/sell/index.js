@@ -49,10 +49,10 @@ const Sell = props => {
 
   const addItem = item => {
     if (orderedItems && orderedItems[item.id]) {
-      orderedItems[item.id]["count"]++;
+      orderedItems[item.id]["orderCount"]++;
     } else {
       orderedItems[item.id] = item;
-      orderedItems[item.id]["count"] = 1;
+      orderedItems[item.id]["orderCount"] = 1;
     }
     setOrderedItems({ ...orderedItems });
   };
@@ -61,10 +61,10 @@ const Sell = props => {
     if (
       orderedItems &&
       orderedItems[item.id] &&
-      orderedItems[item.id]["count"] > 0
+      orderedItems[item.id]["orderCount"] > 0
     ) {
-      orderedItems[item.id]["count"]--;
-      if (orderedItems[item.id]["count"] === 0) {
+      orderedItems[item.id]["orderCount"]--;
+      if (orderedItems[item.id]["orderCount"] === 0) {
         delete orderedItems[item.id];
       }
     }
@@ -124,10 +124,10 @@ const Sell = props => {
                         <Text style={sellStyles.name}>{product.name}</Text>
                         <Text style={sellStyles.count}>
                           Available count{" "}
-                          {product.availableCount -
+                          {product.count -
                             ((orderedItems &&
                               orderedItems[product.id] &&
-                              orderedItems[product.id].count) ||
+                              orderedItems[product.id].orderCount) ||
                               0)}
                         </Text>
                         <Text style={sellStyles.price}>
@@ -146,7 +146,7 @@ const Sell = props => {
                         <Text>
                           {(orderedItems &&
                             orderedItems[product.id] &&
-                            orderedItems[product.id].count) ||
+                            orderedItems[product.id].orderCount) ||
                             0}{" "}
                         </Text>
                         <TouchableOpacity onPress={() => removeItem(product)}>

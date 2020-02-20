@@ -7,7 +7,10 @@ export const SHOP_ENDPOINTS = {
     ORDERS:"rentalcart/api/orders",
     PUSH_TOKENS: "pushToken",
     CREATE_CATEGORY:"rentalcart/api/createCategory",
-    CREATE_ITEM:"rentalcart/api/createItem"
+    CREATE_ITEM:"rentalcart/api/createItem",
+    UPDATE_ITEM:"rentalcart/api/item",    
+    ITEM:"rentalcart/api/item",
+    
 }
 const STAGING_DOMAIN_NAME = 'https://rentalcart-dev.herokuapp.com/';
 const PRODUCTION_DOMAIN_NAME = 'https://rentalcart.herokuapp.com/';
