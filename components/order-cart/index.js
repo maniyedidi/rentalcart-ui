@@ -7,11 +7,13 @@ import Loader from "../../shared-components/loader";
 import { retrieveData } from "../../services/storage.service";
 import { DOMAIN_NAME, SHOP_ENDPOINTS } from "../../constants/endpoints";
 import { invokeApi } from "../../services/dataServices";
+import DatePicker from "react-native-datepicker";
 
 const OrderCart = props => {
   const [orderedItems, setOrderedItems] = useState({});
   const [dataLoading, setDataLoading] = useState(true);
   const [billAmount, setBillAmount] = useState(0);
+  const [orderDate, setOrderDate] = useState(new Date());
 
   const [customerdetails, setCustomerdetails] = useState({
     firstName: "",
@@ -43,7 +45,7 @@ const OrderCart = props => {
       items.push(orderedItems[id]);
     });
     customerdetails["id"] = customerdetails.contact;
-    
+
     const payload = {
       id: Date.now(),
       customer: customerdetails,
@@ -126,6 +128,34 @@ const OrderCart = props => {
                 }
                 value={customerdetails.address}
               />
+              <View style={
+                {
+                  flexDirection:"row",
+                  alignItems:"center",
+                  alignContent:"center",
+                  height:40                  
+
+                }
+              }>
+                <Text>Order Date </Text>
+                <DatePicker                
+                date={orderDate}
+                format={"DD-MM-YYYY"}
+                mode="date"
+                placeholder="Order date"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                  dateIcon: appStyles.dateIcon,
+                  dateInput: appStyles.dateInput
+                }}
+                is24Hour={false}
+                onDateChange={date => {
+                  setOrderDate(date);
+                }}
+              />
+              </View>
+              
             </Card>
           </View>
           <Card containerStyle={{ margin: 0 }}>
@@ -145,7 +175,9 @@ const OrderCart = props => {
                     {orderedItems[id].amount || "0.00"}
                   </Text>
                   <Text style={orderCartStyles.col3}>
-                    {orderedItems && orderedItems[id] && orderedItems[id].orderCount}
+                    {orderedItems &&
+                      orderedItems[id] &&
+                      orderedItems[id].orderCount}
                   </Text>
                   <Text style={orderCartStyles.col4}>
                     {orderedItems &&
