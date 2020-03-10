@@ -1,8 +1,8 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
-import SpidlePOS from "./reducer";
+import AppReducer from "./reducer";
 import thunk from "redux-thunk";
 
 export default function configureStore() {
-  const rootReducer = combineReducers({ spidlepos: SpidlePOS });
+  const rootReducer = combineReducers({ appStore: AppReducer });
   return createStore(rootReducer, applyMiddleware(thunk));
 }

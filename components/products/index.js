@@ -6,6 +6,7 @@ import {
   RefreshControl,
   TouchableOpacity
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import { Card, Icon, Overlay } from "react-native-elements";
 import { invokeApi } from "../../services/dataServices";
 import { DOMAIN_NAME, SHOP_ENDPOINTS } from "../../constants/endpoints";
@@ -13,8 +14,11 @@ import { appStyles } from "../../appStyles";
 import { onlineOrderStyles } from "./styles";
 import Loader from "../../shared-components/loader";
 import CreateProduct from "../create-product";
+import { getItems } from "../../redux/actions";
 
 const Products = props => {
+  const dispatch = useDispatch();
+  const storeItems = useSelector(state => state.appStore.items || []);
   const [itemList, setItemList] = useState([]);
   const [dataLoading, setDataLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -23,29 +27,15 @@ const Products = props => {
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    getProducts();
+    getItems(dispatch);
   }, [refreshing]);
 
   useEffect(() => {
-    getProducts();
-  }, []);
-
-  getProducts = () => {
-    setDataLoading(true);
-    invokeApi(`${DOMAIN_NAME}${SHOP_ENDPOINTS.ITEMS}`, "GET")
-      .then(data => {
-        if (data.error) {
-        } else {
-          setItemList(data || []);
-          setDataLoading(false);
-          setRefreshing(false);
-        }
-      })
-      .catch(() => {
-        setRefreshing(false);
-        setDataLoading(false);
-      });
-  };
+    if (storeItems.length > 0) {
+      setItemList(storeItems);
+      setRefreshing(false);
+    }
+  }, [storeItems]);
 
   const updateItem = itemDetails => {
     setEditFlag(false);
@@ -56,7 +46,7 @@ const Products = props => {
     )
       .then(data => {
         if (data.msg == "updated") {
-          getProducts();
+          getItems(dispatch);
         } else {
         }
       })
@@ -68,15 +58,10 @@ const Products = props => {
       .then(data => {
         if (data.error) {
         } else {
-          setDataLoading(false);
-          setRefreshing(false);
-          getProducts();
+          getItems(dispatch);
         }
       })
-      .catch(err => {
-        setRefreshing(false);
-        setDataLoading(false);
-      });
+      .catch(err => {});
   };
 
   editProduct = item => {
@@ -145,30 +130,32 @@ const Products = props => {
           </ScrollView>
         )}
         <Overlay isVisible={editFlag} height={400}>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between"
-            }}
-          >
-            <Text
+          <View>
+            <View
               style={{
-                fontSize: 14,
-                fontWeight: "bold"
+                flexDirection: "row",
+                justifyContent: "space-between"
               }}
             >
-              Update Product
-            </Text>
-            <TouchableOpacity onPress={() => setEditFlag(false)}>
-              <Icon name="close" size={25} type="font-awesome" color="#000" />
-            </TouchableOpacity>
-          </View>
-          <View>
-            <CreateProduct
-              mode="EDIT"
-              item={editItem}
-              updateItem={itemDetails => updateItem(itemDetails)}
-            />
+              <Text
+                style={{
+                  fontSize: 14,
+                  fontWeight: "bold"
+                }}
+              >
+                Update Product
+              </Text>
+              <TouchableOpacity onPress={() => setEditFlag(false)}>
+                <Icon name="close" size={25} type="font-awesome" color="#000" />
+              </TouchableOpacity>
+            </View>
+            <View>
+              <CreateProduct
+                mode="EDIT"
+                item={editItem}
+                updateItem={itemDetails => updateItem(itemDetails)}
+              />
+            </View>
           </View>
         </Overlay>
       </View>

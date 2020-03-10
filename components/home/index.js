@@ -12,7 +12,8 @@ import { homeStyles } from "./styles";
 import MenuIcon from "../../shared-components/header-menu";
 
 const HomeScreen = props => {
-  const navigation = props.navigation;
+  const navigation = props.navigation;  
+
   constonMenuClick = () => {};
 
   const productsMenuComponent = () => {

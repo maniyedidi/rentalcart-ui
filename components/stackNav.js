@@ -84,6 +84,7 @@ const AppStack = createStackNavigator({
     }
   }
 });
+
 const AuthStack = createStackNavigator({
   Login: {
     screen: Login,

@@ -7,46 +7,43 @@ import {
   RefreshControl,
   TextInput
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import { Icon, Card, Header } from "react-native-elements";
-import { invokeApi } from "../../services/dataServices";
-import { DOMAIN_NAME, SHOP_ENDPOINTS } from "../../constants/endpoints";
 import { appStyles } from "../../appStyles";
 import { sellStyles } from "./styles";
 import Loader from "../../shared-components/loader";
 import { storeData } from "../../services/storage.service";
 import MenuIcon from "../../shared-components/header-menu";
+import { getItems } from "../../redux/actions";
 
 const Sell = props => {
+  const dispatch = useDispatch();
+  const storeItems = useSelector(state => state.appStore.items || []);
+
   const [productsList, setProductsList] = useState([]);
   const [orderedItems, setOrderedItems] = useState({});
-  const [dataLoading, setDataLoading] = useState({});
+  const [dataLoading, setDataLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    getProductsList();
+    setDataLoading(true);
+    setRefreshing(false);
+    getItems(dispatch);
   }, []);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    getProductsList();
+    getItems(dispatch);
   }, [refreshing]);
 
-  const getProductsList = () => {
-    setDataLoading(true);
-    invokeApi(`${DOMAIN_NAME}${SHOP_ENDPOINTS.ITEMS}`, "GET")
-      .then(data => {
-        if (data.error) {
-        } else {
-          setDataLoading(false);
-          setRefreshing(false);
-          setProductsList(data || []);
-        }
-      })
-      .catch(() => {
-        setRefreshing(false);
-        setDataLoading(false);
-      });
-  };
+  useEffect(() => {
+    if (storeItems.length > 0) {
+      setProductsList(storeItems);
+      setRefreshing(false);
+      setDataLoading(false);
+    }
+  }, [storeItems]);
+
 
   const addItem = item => {
     if (orderedItems && orderedItems[item.id]) {
@@ -158,14 +155,15 @@ const Sell = props => {
                           />
                         </TouchableOpacity>
                         <TextInput
-                          style={{ textAlign:"center",height:25, width:60 }}
+                          style={{ textAlign: "center", height: 25, width: 60 }}
                           placeholder="Count"
                           keyboardType="number-pad"
                           onChangeText={value => onInputChange(+value, product)}
                           value={
                             (orderedItems &&
                               orderedItems[product.id] &&
-                              `${orderedItems[product.id].orderCount}`) || "0"
+                              `${orderedItems[product.id].orderCount}`) ||
+                            "0"
                           }
                         />
 

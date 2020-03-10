@@ -2,18 +2,21 @@ import { invokeApi } from "../services/dataServices";
 import { SHOP_ENDPOINTS, DOMAIN_NAME } from "../constants/endpoints";
 
 export const ACTIONS = {
-  GET_SHOP_DETAILS: "getShopDetails"
+  GET_ITEMS_LIST: "GET_ITEMS_LIST",
+  DATA_LOADING: "DATA_LOADING"
 };
 
-export const getShopdetails = () => dispatch => {
-  invokeApi(`${DOMAIN_NAME}${SHOP_ENDPOINTS.GETSHOP}`, "GET")
+export const getItems = dispatch => {
+  invokeApi(`${DOMAIN_NAME}${SHOP_ENDPOINTS.ITEMS}`, "GET")
     .then(data => {
-      // console.log("response wqeq askjsha", data);
-      if (data && data.data) {
-        dispatch({ type: ACTIONS.GET_SHOP_DETAILS, payload: data.data || {} });
+      if (data.error) {
+        dispatch({ type: ACTIONS.GET_ITEMS_LIST, payload: [] || {} });
+      } else {
+        dispatch({ type: ACTIONS.GET_ITEMS_LIST, payload: data || {} });
       }
     })
     .catch(err => {
       console.log(err);
+      dispatch({ type: ACTIONS.GET_ITEMS_LIST, payload: [] || {} });
     });
 };

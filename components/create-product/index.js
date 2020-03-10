@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Text, TextInput, View } from "react-native";
+import { useDispatch } from "react-redux";
 import { Button, Card } from "react-native-elements";
 import { appStyles } from "../../appStyles";
 import { SHOP_ENDPOINTS, DOMAIN_NAME } from "../../constants/endpoints";
 import { invokeApi } from "../../services/dataServices";
+import { getItems } from "../../redux/actions";
 
 const MODES = {
   edit: "EDIT"
 };
 const CreateProduct = props => {
   const navigation = props.navigation;
+  const dispatch = useDispatch();
   const [itemDetails, setItemDetails] = useState({
     id: Date.now(),
     name: "",
@@ -64,6 +67,7 @@ const CreateProduct = props => {
       .then(data => {
         if (data.id) {
           navigation.navigate("Home");
+          getItems(dispatch);
         } else {
         }
       })
