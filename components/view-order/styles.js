@@ -6,7 +6,8 @@ export const orderCartStyles = StyleSheet.create({
   bodyContainer:{
     backgroundColor:"grey"
   },
-  footerContainer:{    
+  footerContainer:{  
+      
   },
   tableRow: {
     flex: 8,

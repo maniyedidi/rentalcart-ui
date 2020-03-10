@@ -2,7 +2,9 @@ import { ACTIONS } from "./actions";
 
 const defaultState = {
   shopDetails: {},
-  items: []
+  items: [],
+  orders: [],
+  dataLoading: false
 };
 
 const AppReducer = (state = defaultState, action) => {
@@ -17,6 +19,18 @@ const AppReducer = (state = defaultState, action) => {
       return {
         ...state,
         items: action.payload
+      };
+    }
+    case ACTIONS.GET_ORDER_LIST: {
+      return {
+        ...state,
+        orders: action.payload
+      };
+    }
+    case ACTIONS.DATA_LOADING: {
+      return {
+        ...state,
+        dataLoading: action.payload
       };
     }
     default:

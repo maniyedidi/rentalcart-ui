@@ -5,14 +5,17 @@ import { orderCartStyles } from "./styles";
 import { appStyles } from "../../appStyles";
 import { invokeApi } from "../../services/dataServices";
 import { SHOP_ENDPOINTS, DOMAIN_NAME } from "../../constants/endpoints";
+import Loader from "../../shared-components/loader";
 
 const ViewOrder = props => {
   const navigation = props.navigation;
   const [orderDetails, setOrderDetails] = useState(
     navigation.getParam("order", {}) || {}
   );
+  const [dataLoading, setDataLoading] = useState(false);
 
   const completeOrder = () => {
+    setDataLoading(true);
     invokeApi(
       `${DOMAIN_NAME}${SHOP_ENDPOINTS.ORDER}/${orderDetails._id}`,
       "POST",
@@ -21,13 +24,14 @@ const ViewOrder = props => {
       }
     )
       .then(data => {
-        console.log("data", data);
+        setDataLoading(false);
         if (data.error) {
         } else {
           navigation.goBack();
         }
       })
       .catch(() => {
+        setDataLoading(false);
         navigation.goBack();
       });
   };
@@ -73,11 +77,15 @@ const ViewOrder = props => {
           )}
         </Card>
         <View style={orderCartStyles.footerContainer}>
-          <Button
-            title="Completed"
-            buttonStyle={appStyles.primarybtn}
-            onPress={() => completeOrder()}
-          />
+          {dataLoading ? (
+            <Loader />
+          ) : (
+            <Button
+              title="Completed"
+              buttonStyle={appStyles.primarybtn}
+              onPress={() => completeOrder()}
+            />
+          )}
         </View>
       </ScrollView>
     </View>

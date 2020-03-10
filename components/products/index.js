@@ -31,7 +31,7 @@ const Products = props => {
   }, [refreshing]);
 
   useEffect(() => {
-    if (storeItems.length > 0) {
+    if (storeItems) {
       setItemList(storeItems);
       setRefreshing(false);
     }

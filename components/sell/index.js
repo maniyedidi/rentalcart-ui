@@ -19,15 +19,15 @@ import { getItems } from "../../redux/actions";
 const Sell = props => {
   const dispatch = useDispatch();
   const storeItems = useSelector(state => state.appStore.items || []);
-
+  const storeDataLoading = useSelector(
+    state => state.appStore.dataLoading || false
+  );
+  const [dataLoading, setDataLoading] = useState(storeDataLoading);
   const [productsList, setProductsList] = useState([]);
   const [orderedItems, setOrderedItems] = useState({});
-  const [dataLoading, setDataLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    setDataLoading(true);
-    setRefreshing(false);
     getItems(dispatch);
   }, []);
 
@@ -37,13 +37,15 @@ const Sell = props => {
   }, [refreshing]);
 
   useEffect(() => {
-    if (storeItems.length > 0) {
+    if (storeItems) {
       setProductsList(storeItems);
       setRefreshing(false);
-      setDataLoading(false);
     }
   }, [storeItems]);
 
+  useEffect(() => {
+    setDataLoading(storeDataLoading);
+  }, [storeDataLoading]);
 
   const addItem = item => {
     if (orderedItems && orderedItems[item.id]) {

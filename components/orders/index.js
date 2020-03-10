@@ -6,47 +6,44 @@ import {
   TouchableOpacity,
   RefreshControl
 } from "react-native";
-import { invokeApi } from "../../services/dataServices";
-import { DOMAIN_NAME, SHOP_ENDPOINTS } from "../../constants/endpoints";
+import { useDispatch, useSelector } from "react-redux";
 import { Card, Icon, Header, Badge } from "react-native-elements";
 import { appStyles } from "../../appStyles";
 import { ordersStyles } from "./styles";
 import Loader from "../../shared-components/loader";
 import { viewDateFormat } from "../../utils";
 import MenuIcon from "../../shared-components/header-menu";
+import { getOrders } from "../../redux/actions";
 
 const Orders = props => {
-  const [dataLoading, setDataLoading] = useState(false);
+  const dispatch = useDispatch();
+  const storeOrders = useSelector(state => state.appStore.orders || []);
+  const storeDataLoading = useSelector(
+    state => state.appStore.dataLoading || false
+  );
+  const [dataLoading, setDataLoading] = useState(storeDataLoading);
   const [orderList, setOrderList] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const navigation = props.navigation;
 
   useEffect(() => {
-    getOrders();
+    getOrders(dispatch);
   }, []);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    getOrders();
+    getOrders(dispatch);
   }, [refreshing]);
 
-  const getOrders = () => {
-    setDataLoading(true);
-    invokeApi(`${DOMAIN_NAME}${SHOP_ENDPOINTS.ORDERS}`, "GET")
-      .then(data => {
-        setDataLoading(false);
+  useEffect(() => {
+    if (storeOrders) {
+      setOrderList(storeOrders);
+    }
+  }, [storeOrders]);
 
-        if (data.error) {
-        } else {
-          setOrderList(data);
-          setRefreshing(false);
-        }
-      })
-      .catch(() => {
-        setDataLoading(false);
-        setRefreshing(false);
-      });
-  };
+  useEffect(() => {
+    setDataLoading(storeDataLoading);
+  }, [storeDataLoading]);
 
   const viewOrder = order => {
     navigation.navigate("ViewOrder", {
@@ -71,7 +68,7 @@ const Orders = props => {
         <View style={{ flex: 9 }}>
           {orderList.length === 0 ? (
             <View style={appStyles.noRecord}>
-              <Text>No Categories found</Text>
+              <Text>No Orders found</Text>
             </View>
           ) : (
             <ScrollView
@@ -98,7 +95,9 @@ const Orders = props => {
                         </Text>
                         <Badge
                           containerStyle={ordersStyles.itemCol2}
-                          status="success"
+                          status={
+                            order.orderStatus === "open" ? "warning" : "success"
+                          }
                           value={order.orderStatus || "-"}
                         />
                         <TouchableOpacity style={ordersStyles.itemCol3}>
