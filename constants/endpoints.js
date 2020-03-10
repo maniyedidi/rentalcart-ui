@@ -17,6 +17,6 @@ const STAGING_DOMAIN_NAME = 'https://rentalcart-dev.herokuapp.com/';
 const PRODUCTION_DOMAIN_NAME = 'https://rentalcart.herokuapp.com/';
 const LOCAL_DOMAIN_NAME = 'https://a7b39835.ngrok.io/';
 
-export const DOMAIN_NAME = STAGING_DOMAIN_NAME;
+export const DOMAIN_NAME = PRODUCTION_DOMAIN_NAME;
 
 

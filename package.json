@@ -13,8 +13,8 @@
     "eject": "expo eject",
     "build_prod": "expo build:android  --release-channel prod",
     "build:i": "expo build:ios",
-    "deploy_stage": "expo publish --release-channel staging",
-    "deploy_prod": "expo publish --release-channel prod",
+    "publish_stage": "expo publish --release-channel staging",
+    "publish_prod": "expo publish --release-channel prod",
     "build_stage": "expo build:android --release-channel staging"
   },
   "dependencies": {
