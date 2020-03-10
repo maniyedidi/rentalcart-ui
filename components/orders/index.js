@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { invokeApi } from "../../services/dataServices";
 import { DOMAIN_NAME, SHOP_ENDPOINTS } from "../../constants/endpoints";
-import { Card, Icon, Header } from "react-native-elements";
+import { Card, Icon, Header, Badge } from "react-native-elements";
 import { appStyles } from "../../appStyles";
 import { ordersStyles } from "./styles";
 import Loader from "../../shared-components/loader";
@@ -96,10 +96,11 @@ const Orders = props => {
                             ({viewDateFormat(order.orderDate)})
                           </Text>
                         </Text>
-
-                        <Text style={ordersStyles.itemCol2}>
-                          Status {order.orderStatus || "-"}
-                        </Text>
+                        <Badge
+                          containerStyle={ordersStyles.itemCol2}
+                          status="success"
+                          value={order.orderStatus || "-"}
+                        />
                         <TouchableOpacity style={ordersStyles.itemCol3}>
                           <Icon
                             name="share-alt"

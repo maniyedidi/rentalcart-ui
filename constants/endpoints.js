@@ -5,6 +5,7 @@ export const SHOP_ENDPOINTS = {
     ITEMS: 'rentalcart/api/itemList',
     CREATE_ORDER:'rentalcart/api/createOrder',
     ORDERS:"rentalcart/api/orders",
+    ORDER:"rentalcart/api/order",
     PUSH_TOKENS: "pushToken",
     CREATE_CATEGORY:"rentalcart/api/createCategory",
     CREATE_ITEM:"rentalcart/api/createItem",

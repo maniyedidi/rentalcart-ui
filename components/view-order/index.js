@@ -1,13 +1,37 @@
 import React, { useState } from "react";
 import { Text, ScrollView, View } from "react-native";
-import { Card } from "react-native-elements";
+import { Card, Button } from "react-native-elements";
 import { orderCartStyles } from "./styles";
+import { appStyles } from "../../appStyles";
+import { invokeApi } from "../../services/dataServices";
+import { SHOP_ENDPOINTS, DOMAIN_NAME } from "../../constants/endpoints";
 
 const ViewOrder = props => {
   const navigation = props.navigation;
   const [orderDetails, setOrderDetails] = useState(
     navigation.getParam("order", {}) || {}
   );
+
+  const completeOrder = () => {
+    invokeApi(
+      `${DOMAIN_NAME}${SHOP_ENDPOINTS.ORDER}/${orderDetails._id}`,
+      "POST",
+      {
+        orderStatus: "Completed"
+      }
+    )
+      .then(data => {
+        console.log("data", data);
+        if (data.error) {
+        } else {
+          navigation.goBack();
+        }
+      })
+      .catch(() => {
+        navigation.goBack();
+      });
+  };
+
   return (
     <View style={orderCartStyles.cartContainer}>
       <ScrollView style={orderCartStyles.bodyContainer}>
@@ -48,6 +72,13 @@ const ViewOrder = props => {
             </View>
           )}
         </Card>
+        <View style={orderCartStyles.footerContainer}>
+          <Button
+            title="Completed"
+            buttonStyle={appStyles.primarybtn}
+            onPress={() => completeOrder()}
+          />
+        </View>
       </ScrollView>
     </View>
   );
