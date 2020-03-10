@@ -20,7 +20,7 @@ const ViewOrder = props => {
           </View>
           {(orderDetails.orderItems || []).map(order => {
             return (
-              <View style={orderCartStyles.tableRow}>
+              <View style={orderCartStyles.tableRow} key={order.id}>
                 <Text style={orderCartStyles.col1}>{order.name}</Text>
                 <Text style={orderCartStyles.col2}>
                   {order.amount || "0.00"}

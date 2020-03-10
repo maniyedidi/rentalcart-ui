@@ -167,7 +167,7 @@ const OrderCart = props => {
             </View>
             {Object.keys(orderedItems || {}).map(id => {
               return (
-                <View style={orderCartStyles.tableRow}>
+                <View style={orderCartStyles.tableRow} key={id}>
                   <Text style={orderCartStyles.col1}>
                     {orderedItems[id].name}
                   </Text>
