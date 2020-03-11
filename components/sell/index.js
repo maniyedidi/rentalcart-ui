@@ -48,6 +48,16 @@ const Sell = props => {
   }, [storeDataLoading]);
 
   const addItem = item => {
+    if (
+      item.count -
+        ((orderedItems &&
+          orderedItems[item.id] &&
+          orderedItems[item.id].orderCount) ||
+          0) <=
+      0
+    ) {
+      return;
+    }
     if (orderedItems && orderedItems[item.id]) {
       orderedItems[item.id]["orderCount"]++;
     } else {
@@ -127,18 +137,25 @@ const Sell = props => {
               }
             >
               {productsList.map(product => {
+                let availableCount =
+                  product.count -
+                  ((orderedItems &&
+                    orderedItems[product.id] &&
+                    orderedItems[product.id].orderCount) ||
+                    0);
                 return (
                   <Card containerStyle={{ margin: 0 }} key={product.id}>
                     <View style={sellStyles.orderItemRow}>
                       <View style={sellStyles.itemdetails}>
                         <Text style={sellStyles.name}>{product.name}</Text>
-                        <Text style={sellStyles.count}>
-                          Available count{" "}
-                          {product.count -
-                            ((orderedItems &&
-                              orderedItems[product.id] &&
-                              orderedItems[product.id].orderCount) ||
-                              0)}
+                        <Text
+                          style={
+                            availableCount > 0
+                              ? sellStyles.count
+                              : sellStyles.invalidCount
+                          }
+                        >
+                          Available count {availableCount}
                         </Text>
                         <Text style={sellStyles.price}>
                           Price per day RS {product.amount}

@@ -17,6 +17,10 @@ export const sellStyles = StyleSheet.create({
     fontSize: 14,
     color: "green"
   },
+  invalidCount: {
+    fontSize: 14,
+    color: "red"
+  },
   addRemoveBtns: {
     flexDirection: "column",
     alignItems: "center",

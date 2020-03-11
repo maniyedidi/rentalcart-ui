@@ -1,21 +1,27 @@
 import { StyleSheet } from "react-native";
 export const onlineOrderStyles = StyleSheet.create({
   productsContainer: {
-    flex:9,
+    flex: 9,
     fontSize: 14
   },
   itemsCard: {
     margin: 0
   },
   itemRow: {
-    flex: 1,
+    flex: 10,
     flexDirection: "row",
     justifyContent: "space-between"
   },
   productDetails: {
-    fontSize: 12
+    fontSize: 12,
+    flex: 6
   },
-  actions: {},
+  counts: {
+    flex: 3
+  },
+  actions: {
+    flex: 1
+  },
   name: {
     fontWeight: "700"
   },
