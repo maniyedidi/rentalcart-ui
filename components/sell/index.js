@@ -138,7 +138,7 @@ const Sell = props => {
             >
               {productsList.map(product => {
                 let availableCount =
-                  product.count -
+                  product.availableCount -
                   ((orderedItems &&
                     orderedItems[product.id] &&
                     orderedItems[product.id].orderCount) ||

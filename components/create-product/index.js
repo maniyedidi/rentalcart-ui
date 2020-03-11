@@ -59,10 +59,14 @@ const CreateProduct = props => {
   };
 
   const createItem = () => {
+    let payload = {
+      ...itemDetails,
+      availableCount: itemDetails.count
+    };
     invokeApi(
       `${DOMAIN_NAME}${SHOP_ENDPOINTS.CREATE_ITEM}`,
       "POST",
-      itemDetails
+      payload
     )
       .then(data => {
         if (data.id) {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Text, ScrollView, View, TextInput } from "react-native";
+import { useDispatch } from "react-redux";
 import { Card, Button } from "react-native-elements";
 import { appStyles } from "../../appStyles";
 import { orderCartStyles } from "./styles";
@@ -8,8 +9,10 @@ import { retrieveData } from "../../services/storage.service";
 import { DOMAIN_NAME, SHOP_ENDPOINTS } from "../../constants/endpoints";
 import { invokeApi } from "../../services/dataServices";
 import DatePicker from "react-native-datepicker";
+import { getItems } from "../../redux/actions";
 
 const OrderCart = props => {
+  const dispatch = useDispatch();
   const [orderedItems, setOrderedItems] = useState({});
   const [dataLoading, setDataLoading] = useState(true);
   const [billAmount, setBillAmount] = useState(0);
@@ -59,7 +62,6 @@ const OrderCart = props => {
       createdAt: Date.now(),
       archive: false
     };
-
     invokeApi(`${DOMAIN_NAME}${SHOP_ENDPOINTS.CREATE_ORDER}`, "POST", payload)
       .then(data => {
         if (data.error) {
@@ -74,6 +76,7 @@ const OrderCart = props => {
   };
 
   const navToOrderScreen = () => {
+    getItems(dispatch);
     props.navigation.navigate("Sell");
   };
 
@@ -128,34 +131,32 @@ const OrderCart = props => {
                 }
                 value={customerdetails.address}
               />
-              <View style={
-                {
-                  flexDirection:"row",
-                  alignItems:"center",
-                  alignContent:"center",
-                  height:40                  
-
-                }
-              }>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  alignContent: "center",
+                  height: 40
+                }}
+              >
                 <Text>Order Date </Text>
-                <DatePicker                
-                date={orderDate}
-                format={"DD-MM-YYYY"}
-                mode="date"
-                placeholder="Order date"
-                confirmBtnText="Confirm"
-                cancelBtnText="Cancel"
-                customStyles={{
-                  dateIcon: appStyles.dateIcon,
-                  dateInput: appStyles.dateInput
-                }}
-                is24Hour={false}
-                onDateChange={date => {
-                  setOrderDate(date);
-                }}
-              />
+                <DatePicker
+                  date={orderDate}
+                  format={"DD-MM-YYYY"}
+                  mode="date"
+                  placeholder="Order date"
+                  confirmBtnText="Confirm"
+                  cancelBtnText="Cancel"
+                  customStyles={{
+                    dateIcon: appStyles.dateIcon,
+                    dateInput: appStyles.dateInput
+                  }}
+                  is24Hour={false}
+                  onDateChange={date => {
+                    setOrderDate(date);
+                  }}
+                />
               </View>
-              
             </Card>
           </View>
           <Card containerStyle={{ margin: 0 }}>

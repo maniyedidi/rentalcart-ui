@@ -15,7 +15,7 @@ export const SHOP_ENDPOINTS = {
 }
 const STAGING_DOMAIN_NAME = 'https://rentalcart-dev.herokuapp.com/';
 const PRODUCTION_DOMAIN_NAME = 'https://rentalcart.herokuapp.com/';
-const LOCAL_DOMAIN_NAME = 'https://a7b39835.ngrok.io/';
+const LOCAL_DOMAIN_NAME = 'http://7865712f.ngrok.io/';
 
 export const DOMAIN_NAME = STAGING_DOMAIN_NAME;
 

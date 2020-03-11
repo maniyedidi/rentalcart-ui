@@ -42,7 +42,6 @@ export const viewDateFormat = inputDate => {
   
   }
 
-
 export const viewDateFormat2 = inputDate => {
   if (inputDate) {
     const date = new Date(inputDate).toISOString().slice(0, 10);
