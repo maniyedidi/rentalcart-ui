@@ -22,7 +22,7 @@ const Tab = createBottomTabNavigator();
 
 function MyTabs() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator initialRouteName="Sell">
       <Tab.Screen
         name="Orders"
         component={Orders}
@@ -74,61 +74,36 @@ function MyTabs() {
 }
 
 const AppRoutes = () => {
-  const [loggingIn, setLoggingIn] = useState(true);
-
-  useEffect(() => {
-    _bootstrapAsync();
-  }, []);
-
-  const _bootstrapAsync = async () => {
-    const loginToken = await authHeader();
-    if (loginToken) {
-      setLoggingIn(false);
-    } else {
-      setLoggingIn(true);
-    }
-  };
-
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        {loggingIn ? (
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{
-              headerShown: false
-            }}
-          />
-        ) : (
-          <>
-            <Stack.Screen
-              name="Home"
-              component={MyTabs}
-              options={{
-                headerShown: false
-              }}
-            />
-            <Stack.Screen
-              name="CreateProduct"
-              component={CreateProduct}                           
-            />
-             <Stack.Screen
-              name="OrderCart"
-              component={OrderCart}                           
-            />
-             <Stack.Screen
-              name="ViewOrder"
-              component={ViewOrder}
-              options={{
-                title:"Order details"
-              }}                           
-            />
-
-          </>
-        )}
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{
+            headerShown: false
+          }}
+        />
+        <Stack.Screen
+          name="Home"
+          component={MyTabs}
+          options={{
+            headerShown: false
+          }}
+        />
+        <Stack.Screen name="CreateProduct" component={CreateProduct} />
+        <Stack.Screen name="OrderCart" component={OrderCart} />
+        <Stack.Screen
+          name="ViewOrder"
+          component={ViewOrder}
+          options={{
+            title: "Order details"
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
+
+
 export default AppRoutes;

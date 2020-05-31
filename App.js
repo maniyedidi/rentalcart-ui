@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "react-native-gesture-handler";
 import { useFonts } from "@use-expo/font";
 import configureStore from "./redux/store";
@@ -8,6 +8,7 @@ const store = configureStore();
 
 import { Provider } from "react-redux";
 import Loader from "./shared-components/loader";
+import { textCutFix } from "./utils";
 
 const App = () => {
   let [fontsLoaded] = useFonts({
@@ -15,6 +16,11 @@ const App = () => {
     "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
     "Roboto-Light": require("./assets/fonts/Roboto-Light.ttf")
   });
+
+  useEffect(() => {
+    textCutFix();
+  }, []);
+
   if (!fontsLoaded) {
     return <Loader />;
   } else {

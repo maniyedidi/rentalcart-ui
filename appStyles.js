@@ -19,8 +19,9 @@ export const appStyles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 20,
-    color: "white",
-    fontFamily:"Roboto-Bold"
+    color: "white",    
+    fontFamily:"Roboto-Bold",
+    minWidth:100    
   },
   link: {
     color: "#238DEF",
