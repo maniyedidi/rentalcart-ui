@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { SideMenuStyles } from "./style";
-import { NavigationActions } from "react-navigation";
+import { NavigationActions } from "react-navigation-stack";
 import {
   ScrollView,
   Text,

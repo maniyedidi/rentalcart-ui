@@ -5,10 +5,10 @@ import {
   View,
   TouchableOpacity,
   RefreshControl,
-  TextInput
+  TextInput, Icon
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { Icon, Card, Header } from "react-native-elements";
+import { Card, Header } from "react-native-elements";
 import { appStyles } from "../../appStyles";
 import { sellStyles } from "./styles";
 import Loader from "../../shared-components/loader";

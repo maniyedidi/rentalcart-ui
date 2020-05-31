@@ -1,8 +1,7 @@
-import { createStackNavigator } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
 import HomeScreen from "./home";
 import Login from "./login";
 import AuthLoadingScreen from "./auth-loading-screen";
-import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import Sell from "./sell";
 import OrderCart from "./order-cart";
 import Orders from "./orders";
@@ -11,12 +10,13 @@ import CreateProduct from "./create-product";
 import Singup from "./signup";
 import ReportsScreen from "./report";
 import ViewOrder from "./view-order";
+import { createSwitchNavigator,createAppContainer } from "react-navigation";
 
 const AppStack = createStackNavigator({
   Sell: {
     screen: Sell,
     navigationOptions: {
-      header: null
+       headerShown:false
     }
   },
   OrderCart: {
@@ -32,7 +32,7 @@ const AppStack = createStackNavigator({
   Orders: {
     screen: Orders,
     navigationOptions: {
-      header: null
+       headerShown:false
     }
   },
   ViewOrder: {
@@ -48,13 +48,13 @@ const AppStack = createStackNavigator({
   Home: {
     screen: HomeScreen,
     navigationOptions: {
-      header: null
+       headerShown:false
     }
   },
   Reports: {
     screen: ReportsScreen,
     navigationOptions: {
-      header: null
+       headerShown:false
     }
   },
   CreateCategory: {
@@ -80,7 +80,7 @@ const AppStack = createStackNavigator({
   SignupScreen: {
     screen: Singup,
     navigationOptions: {
-      header: null
+       headerShown:false
     }
   }
 });
@@ -89,7 +89,7 @@ const AuthStack = createStackNavigator({
   Login: {
     screen: Login,
     navigationOptions: {
-      header: null
+      headerShown:false
     }
   }
 });
