@@ -85,8 +85,7 @@ const Singup = props => {
     }
   };
 
-  const createUser = () => {
-    console.log("userDetails", userDetails);
+  const createUser = () => {    
     const headers = { "Content-Type": "application/json" };
     const requestOptions = {
       method: "POST",
@@ -123,7 +122,7 @@ const Singup = props => {
         placement="left"
         leftComponent={{
           text: "Create rentalcart account",
-          style: { color: "#fff", fontSize: 16 }
+          style: appStyles.headerTitle
         }}
       />
       {accountFlag ? (

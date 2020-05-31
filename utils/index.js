@@ -52,7 +52,7 @@ export const viewDateFormat2 = inputDate => {
 };
 
 export const logout = navigation => {
-  AsyncStorage.clear().then(() => {
+  AsyncStorage.clear().then(() => {  
     navigation.navigate("Login");
   });
 };

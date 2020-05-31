@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import Login from "../components/login";
-import SettingsScreen from "../components/settings";
-import { authHeader } from "../utils";
+import SetupScreen from "../components/setup";
 import ReportsScreen from "../components/report";
 import Orders from "../components/orders";
 import Sell from "../components/sell";
 import CustomersScreen from "../components/customers";
 import CreateProduct from "../components/create-product";
-import { appStyles } from "../appStyles";
 import OrderCart from "../components/order-cart";
 import ViewOrder from "../components/view-order";
 
@@ -53,7 +51,7 @@ function MyTabs() {
       />
       <Tab.Screen
         name="Setup"
-        component={SettingsScreen}
+        component={SetupScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <FontAwesome5 name="cog" size={25} color={color} />
@@ -104,6 +102,5 @@ const AppRoutes = () => {
     </NavigationContainer>
   );
 };
-
 
 export default AppRoutes;

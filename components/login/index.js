@@ -37,8 +37,7 @@ const Login = props => {
           setLoggingIn(false);
         } else {
           storeData("user", user).then(token => {
-            props.navigation.navigate("Home");
-            setLoggingIn(false);
+            props.navigation.navigate("Home");            
           });
         }
       })

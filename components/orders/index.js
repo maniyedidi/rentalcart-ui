@@ -17,6 +17,7 @@ import { getOrders } from "../../redux/actions";
 
 const Orders = props => {
   const dispatch = useDispatch();
+  const navigation = props.navigation;
   const storeOrders = useSelector(state => state.appStore.orders || []);
   const storeDataLoading = useSelector(
     state => state.appStore.dataLoading || false
@@ -24,7 +25,6 @@ const Orders = props => {
   const [dataLoading, setDataLoading] = useState(storeDataLoading);
   const [orderList, setOrderList] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
-  const navigation = props.navigation;
 
   useEffect(() => {
     getOrders(dispatch);
@@ -53,18 +53,18 @@ const Orders = props => {
 
   return (
     <View style={ordersStyles.orderContainer}>
-      <View style={{ flex: 1 }}>
+      <View>
         <Header
-          backgroundColor="#3D6CB9"          
+          backgroundColor="#3D6CB9"
           rightComponent={
             <FontAwesome5
               name="sign-out-alt"
               size={25}
               color="white"
-              onPress={logout}
+              onPress={() => logout(navigation)}
             />
           }
-          leftComponent={{ text: "Orders", style: appStyles.headerTitle}}
+          leftComponent={{ text: "Orders", style: appStyles.headerTitle }}
         />
       </View>
 

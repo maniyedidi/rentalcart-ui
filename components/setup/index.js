@@ -5,8 +5,9 @@ import { Header } from "react-native-elements";
 import Products from "../products";
 import { homeStyles } from "./styles";
 import { appStyles } from "../../appStyles";
+import { logout } from "../../utils";
 
-const SettingsScreen = props => {
+const SetupScreen = props => {
   const navigation = props.navigation;
 
   const goToCreateItems = () => {
@@ -15,7 +16,7 @@ const SettingsScreen = props => {
         <FontAwesome5
           color="#fff"
           name="plus-square"
-          size={30}
+          size={24}
           type="font-awesome"
         />
       </TouchableOpacity>
@@ -26,8 +27,17 @@ const SettingsScreen = props => {
     <View style={homeStyles.homeContainer}>
       <Header
         backgroundColor="#3D6CB9"
+        placement="right"
         leftComponent={{ text: "Setup", style: appStyles.headerTitle }}
-        rightComponent={goToCreateItems()}
+        centerComponent={goToCreateItems()}
+        rightComponent={
+          <FontAwesome5
+            name="sign-out-alt"
+            size={25}
+            color="white"
+            onPress={() => logout(navigation)}
+          />
+        }
       />
       <View style={{ flex: 9 }}>
         <Products />
@@ -36,4 +46,4 @@ const SettingsScreen = props => {
   );
 };
 
-export default SettingsScreen;
+export default SetupScreen;

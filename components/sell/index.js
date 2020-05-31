@@ -19,6 +19,7 @@ import { logout } from "../../utils";
 
 const Sell = props => {
   const dispatch = useDispatch();
+  const navigation = props.navigation;
   const storeItems = useSelector(state => state.appStore.items || []);
   const storeDataLoading = useSelector(
     state => state.appStore.dataLoading || false
@@ -84,7 +85,7 @@ const Sell = props => {
 
   const navToDetailsScreen = () => {
     storeData("orderedItems", orderedItems).then(res => {
-      props.navigation.navigate("OrderCart");
+      navigation.navigate("OrderCart");
     });
   };
 
@@ -108,7 +109,7 @@ const Sell = props => {
 
   return (
     <View style={sellStyles.sellContainer}>
-      <View style={{ flex: 1 }}>
+      <View>
         <Header
           backgroundColor="#3D6CB9"
           placement="right"
@@ -118,7 +119,7 @@ const Sell = props => {
               name="sign-out-alt"
               size={25}
               color="white"
-              onPress={logout}
+              onPress={() => logout(navigation)}
             />
           }
           centerComponent={cartComponent()}

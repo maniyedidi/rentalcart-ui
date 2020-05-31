@@ -18,7 +18,7 @@ export const appStyles = StyleSheet.create({
     alignContent: "center"
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: 22,
     color: "white",    
     fontFamily:"Roboto-Bold",
     minWidth:100    

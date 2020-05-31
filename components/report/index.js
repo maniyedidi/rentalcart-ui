@@ -7,6 +7,8 @@ import { appStyles } from "../../appStyles";
 import { logout } from "../../utils";
 
 const ReportsScreen = props => {
+  const navigation = props.navigation;
+  
   return (
     <View style={reportStyles.reportContainer}>
       <View style={{ flex: 1 }}>
@@ -18,7 +20,7 @@ const ReportsScreen = props => {
               name="sign-out-alt"
               size={25}
               color="white"
-              onPress={logout}
+              onPress={() => logout(navigation)}
             />
           }
         />
