@@ -18,10 +18,9 @@ export const appStyles = StyleSheet.create({
     alignContent: "center"
   },
   headerTitle: {
-    fontWeight: "bold",
-    paddingLeft: 10,
-    fontSize: 16,
-    color: "white"
+    fontSize: 20,
+    color: "white",
+    fontFamily:"Roboto-Bold"
   },
   link: {
     color: "#238DEF",
@@ -38,9 +37,9 @@ export const appStyles = StyleSheet.create({
     marginLeft: 36,
     flex: 1,
     height: 40,
-    borderTopWidth:0,
-    borderLeftWidth:0,
-    borderRightWidth:0,
+    borderTopWidth: 0,
+    borderLeftWidth: 0,
+    borderRightWidth: 0,
     borderColor: "#ddd",
     borderBottomWidth: 1,
     marginTop: 15

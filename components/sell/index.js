@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { FontAwesome5 } from "@expo/vector-icons";
 import {
   Text,
   ScrollView,
   View,
   TouchableOpacity,
   RefreshControl,
-  TextInput, Icon
+  TextInput
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Card, Header } from "react-native-elements";
@@ -13,8 +14,8 @@ import { appStyles } from "../../appStyles";
 import { sellStyles } from "./styles";
 import Loader from "../../shared-components/loader";
 import { storeData } from "../../services/storage.service";
-import MenuIcon from "../../shared-components/header-menu";
 import { getItems } from "../../redux/actions";
+import { logout } from "../../utils";
 
 const Sell = props => {
   const dispatch = useDispatch();
@@ -87,19 +88,6 @@ const Sell = props => {
     });
   };
 
-  const cartComponent = () => {
-    return (
-      <TouchableOpacity onPress={navToDetailsScreen}>
-        <Icon
-          name="shopping-cart"
-          size={30}
-          color="white"
-          type="font-awesome"
-        />
-      </TouchableOpacity>
-    );
-  };
-
   const onInputChange = (value, item) => {
     if (orderedItems && orderedItems[item.id]) {
       orderedItems[item.id]["orderCount"] = value;
@@ -110,15 +98,30 @@ const Sell = props => {
     setOrderedItems({ ...orderedItems });
   };
 
+  const cartComponent = () => {
+    return (
+      <TouchableOpacity onPress={navToDetailsScreen}>
+        <FontAwesome5 name="shopping-cart" size={24} color="white" />
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <View style={sellStyles.sellContainer}>
       <View style={{ flex: 1 }}>
         <Header
           backgroundColor="#3D6CB9"
-          placement="left"
-          leftComponent={<MenuIcon navigation={props.navigation} />}
-          centerComponent={{ text: "Sell", style: { color: "#fff" } }}
-          rightComponent={cartComponent()}
+          placement="right"
+          leftComponent={{ text: "Sell", style: appStyles.headerTitle }}
+          rightComponent={
+            <FontAwesome5
+              name="sign-out-alt"
+              size={25}
+              color="white"
+              onPress={logout}
+            />
+          }
+          centerComponent={cartComponent()}
         />
       </View>
 
@@ -166,12 +169,7 @@ const Sell = props => {
                           style={sellStyles.countBtn}
                           onPress={() => addItem(product)}
                         >
-                          <Icon
-                            name="plus"
-                            size={24}
-                            color="white"
-                            type="font-awesome"
-                          />
+                          <FontAwesome5 name="plus" size={20} color="white" />
                         </TouchableOpacity>
                         <TextInput
                           style={{ textAlign: "center", height: 25, width: 60 }}
@@ -190,9 +188,9 @@ const Sell = props => {
                           style={sellStyles.countBtn}
                           onPress={() => removeItem(product)}
                         >
-                          <Icon
+                          <FontAwesome5
                             name="minus"
-                            size={24}
+                            size={20}
                             color="white"
                             type="font-awesome"
                           />

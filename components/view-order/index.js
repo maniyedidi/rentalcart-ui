@@ -9,9 +9,9 @@ import Loader from "../../shared-components/loader";
 
 const ViewOrder = props => {
   const navigation = props.navigation;
-  const [orderDetails, setOrderDetails] = useState(
-    navigation.getParam("order", {}) || {}
-  );
+
+  const orderDetails = props.route.params.order || {};
+
   const [dataLoading, setDataLoading] = useState(false);
 
   const completeOrder = () => {

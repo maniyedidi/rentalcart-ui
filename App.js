@@ -1,21 +1,29 @@
 import React from "react";
-import {View,Text} from 'react-native';
-import { MenuProvider } from "react-native-popup-menu";
+import "react-native-gesture-handler";
+import { useFonts } from "@use-expo/font";
 import configureStore from "./redux/store";
-const store = configureStore();
-import { Provider } from "react-redux";
+import AppRoutes from "./routes";
 
+const store = configureStore();
+
+import { Provider } from "react-redux";
+import Loader from "./shared-components/loader";
 
 const App = () => {
-  return (
-    <MenuProvider>
+  let [fontsLoaded] = useFonts({
+    "Roboto-Bold": require("./assets/fonts/Roboto-Bold.ttf"),
+    "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
+    "Roboto-Light": require("./assets/fonts/Roboto-Light.ttf")
+  });
+  if (!fontsLoaded) {
+    return <Loader />;
+  } else {
+    return (
       <Provider store={store}>
-       <View>
-         <Text>Hello world</Text>
-       </View>
+        <AppRoutes />
       </Provider>
-    </MenuProvider>
-  );
+    );
+  }
 };
 
 export default App;

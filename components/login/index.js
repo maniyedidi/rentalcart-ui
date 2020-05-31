@@ -10,12 +10,12 @@ import { appStyles } from "../../appStyles";
 const Login = props => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [loggingIn, setLoggingIn] = useState(true);
+  const [loggingIn, setLoggingIn] = useState(false);
   const [erroFlag, setErroFlag] = useState(false);
   const [errorMsg, setErrorMessage] = useState("");
 
   useEffect(() => {
-    _bootstrapAsync();
+    // _bootstrapAsync();
   }, []);
 
   const _bootstrapAsync = async () => {
@@ -80,11 +80,10 @@ const Login = props => {
   ) : (
     <View>
       <Header
-        backgroundColor="#3D6CB9"
-        placement="left"
+        backgroundColor="#3D6CB9"        
         leftComponent={{
           text: "Rentalcart",
-          style: { color: "#fff", fontSize: 16 }
+          style: appStyles.headerTitle
         }}
       />
       <Card>

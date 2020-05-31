@@ -1,21 +1,26 @@
 import React from "react";
 import { View, Text } from "react-native";
+import { FontAwesome5 } from "@expo/vector-icons";
 import { Header } from "react-native-elements";
-import MenuIcon from "../../shared-components/header-menu";
 import { reportStyles } from "./styles";
+import { appStyles } from "../../appStyles";
+import { logout } from "../../utils";
 
 const ReportsScreen = props => {
-  const navigation = props.navigation;
-  constonMenuClick = () => {};
-
   return (
     <View style={reportStyles.reportContainer}>
       <View style={{ flex: 1 }}>
         <Header
-          backgroundColor="#3D6CB9"
-          placement="left"
-          leftComponent={<MenuIcon navigation={navigation} />}
-          centerComponent={{ text: "Reports", style: { color: "#fff" } }}
+          backgroundColor="#3D6CB9"          
+          leftComponent={{ text: "Reports", style: appStyles.headerTitle }}
+          rightComponent={
+            <FontAwesome5
+              name="sign-out-alt"
+              size={25}
+              color="white"
+              onPress={logout}
+            />
+          }
         />
       </View>
 

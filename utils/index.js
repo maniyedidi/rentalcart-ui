@@ -31,3 +31,10 @@ export const viewDateFormat2 = inputDate => {
   }
   return inputDate;
 };
+
+
+export const logout = (navigation) => {
+  AsyncStorage.clear().then(() => {
+    navigation.navigate("Login");
+  });
+};

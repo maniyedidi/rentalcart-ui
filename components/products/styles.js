@@ -20,7 +20,9 @@ export const onlineOrderStyles = StyleSheet.create({
     flex: 3
   },
   actions: {
-    flex: 1
+    flex: 1,
+    alignItems:"center",
+    justifyContent:"space-around"
   },
   name: {
     fontWeight: "700"
