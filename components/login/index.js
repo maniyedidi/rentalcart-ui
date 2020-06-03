@@ -7,8 +7,8 @@ import Loader from "../../shared-components/loader";
 import { appStyles } from "../../appStyles";
 
 const Login = props => {
-  const [username, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUserName] = useState("test@test.com");
+  const [password, setPassword] = useState("test123");
   const [loggingIn, setLoggingIn] = useState(false);
   const [erroFlag, setErroFlag] = useState(false);
   const [errorMsg, setErrorMessage] = useState("");
@@ -65,7 +65,8 @@ const Login = props => {
     <View>
       <Header
         backgroundColor="#3D6CB9"
-        leftComponent={<Text style={appStyles.headerTitle}>Rentalcart</Text>}
+        placement="right"
+        leftComponent={{ text: "Rentalcart", style: appStyles.headerTitle }}
       />
       <Card>
         <TextInput

@@ -9,13 +9,13 @@ import {
   TextInput
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { Card, Header } from "react-native-elements";
+import { Card } from "react-native-elements";
 import { appStyles } from "../../appStyles";
 import { sellStyles } from "./styles";
 import Loader from "../../shared-components/loader";
+import AppHeader from "../../shared-components/header";
 import { storeData } from "../../services/storage.service";
 import { getItems } from "../../redux/actions";
-import { logout } from "../../utils";
 
 const Sell = props => {
   const dispatch = useDispatch();
@@ -110,18 +110,9 @@ const Sell = props => {
   return (
     <View style={sellStyles.sellContainer}>
       <View>
-        <Header
-          backgroundColor="#3D6CB9"
+        <AppHeader
           placement="right"
-          leftComponent={{ text: "Sell", style: appStyles.headerTitle }}
-          rightComponent={
-            <FontAwesome5
-              name="sign-out-alt"
-              size={25}
-              color="white"
-              onPress={() => logout(navigation)}
-            />
-          }
+          navigation={navigation}
           centerComponent={cartComponent()}
         />
       </View>

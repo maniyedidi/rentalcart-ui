@@ -12,16 +12,16 @@ export const appStyles = StyleSheet.create({
     paddingRight: 5
   },
   noRecord: {
-    flex: 1,
+    paddingTop: "50%",
     justifyContent: "center",
     alignItems: "center",
     alignContent: "center"
   },
   headerTitle: {
     fontSize: 22,
-    color: "white",    
-    fontFamily:"Roboto-Bold",
-    minWidth:100    
+    color: "white",
+    fontFamily: "Roboto-Bold",
+    minWidth: 100
   },
   link: {
     color: "#238DEF",
