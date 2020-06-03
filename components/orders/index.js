@@ -8,12 +8,13 @@ import {
   RefreshControl
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { Card, Header, Badge } from "react-native-elements";
+import { Card, Badge } from "react-native-elements";
 import { appStyles } from "../../appStyles";
 import { ordersStyles } from "./styles";
 import Loader from "../../shared-components/loader";
 import { viewDateFormat, logout } from "../../utils";
 import { getOrders } from "../../redux/actions";
+import AppHeader from "../../shared-components/header";
 
 const Orders = props => {
   const dispatch = useDispatch();
@@ -54,18 +55,7 @@ const Orders = props => {
   return (
     <View style={ordersStyles.orderContainer}>
       <View>
-        <Header
-          backgroundColor="#3D6CB9"
-          rightComponent={
-            <FontAwesome5
-              name="sign-out-alt"
-              size={25}
-              color="white"
-              onPress={() => logout(navigation)}
-            />
-          }
-          leftComponent={{ text: "Orders", style: appStyles.headerTitle }}
-        />
+        <AppHeader placement="right" navigation={navigation} />
       </View>
 
       {dataLoading ? (

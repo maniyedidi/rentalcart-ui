@@ -72,106 +72,97 @@ const Products = props => {
 
   return (
     <View style={onlineOrderStyles.productsContainer}>
-      <View>
-        {dataLoading ? (
-          <Loader />
-        ) : itemList.length === 0 ? (
-          <View style={appStyles.noRecord}>
-            <Text>No Products found</Text>
-          </View>
-        ) : (
-          <ScrollView
-            refreshControl={
-              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-            }
-          >
-            {itemList.map(item => {
-              return (
-                <Card
-                  containerStyle={onlineOrderStyles.itemsCard}
-                  key={item.id}
-                >
-                  <View style={onlineOrderStyles.itemRow}>
-                    <View style={onlineOrderStyles.productDetails}>
-                      <Text style={onlineOrderStyles.name}>{item.name}</Text>
-                      <Text style={onlineOrderStyles.desc}>
-                        {item.description}
-                      </Text>
-                    </View>
-                    <View style={onlineOrderStyles.counts}>
-                      <Text style={onlineOrderStyles.name}>
-                        Count :{item.count}
-                      </Text>
-                      <Text style={onlineOrderStyles.name}>
-                        Price : {item.amount}
-                      </Text>
-                      <Text style={onlineOrderStyles.name}>
-                        Available : {item.availableCount}
-                      </Text>
-                    </View>
-                    <View style={onlineOrderStyles.actions}>
-                      <TouchableOpacity onPress={() => editProduct(item)}>
-                        <FontAwesome5
-                          name="edit"
-                          size={20}
-                          type="font-awesome"
-                          color="#0A4BB5"
-                        />
-                      </TouchableOpacity>
-                      <TouchableOpacity onPress={() => deleteProduct(item)}>
-                        <FontAwesome5
-                          name="trash"
-                          size={20}
-                          type="font-awesome"
-                          color="red"
-                        />
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                </Card>
-              );
-            })}
-          </ScrollView>
-        )}
-        <Overlay
-          isVisible={editFlag}
-          height={400}
-          width={"100%"}
-          onBackdropPress={() => setEditFlag(false)}
+      {dataLoading ? (
+        <Loader />
+      ) : itemList.length === 0 ? (
+        <View style={appStyles.noRecord}>
+          <Text>No Products found</Text>
+        </View>
+      ) : (
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
         >
-          <View>
-            <View
+          {itemList.map(item => {
+            return (
+              <Card containerStyle={onlineOrderStyles.itemsCard} key={item.id}>
+                <View style={onlineOrderStyles.itemRow}>
+                  <View style={onlineOrderStyles.productDetails}>
+                    <Text style={onlineOrderStyles.name}>{item.name}</Text>
+                    <Text style={onlineOrderStyles.desc}>
+                      {item.description}
+                    </Text>
+                  </View>
+                  <View style={onlineOrderStyles.counts}>
+                    <Text style={onlineOrderStyles.name}>
+                      Count :{item.count}
+                    </Text>
+                    <Text style={onlineOrderStyles.name}>
+                      Price : {item.amount}
+                    </Text>
+                    <Text style={onlineOrderStyles.name}>
+                      Available : {item.availableCount}
+                    </Text>
+                  </View>
+                  <View style={onlineOrderStyles.actions}>
+                    <TouchableOpacity onPress={() => editProduct(item)}>
+                      <FontAwesome5
+                        name="edit"
+                        size={20}
+                        type="font-awesome"
+                        color="#0A4BB5"
+                      />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => deleteProduct(item)}>
+                      <FontAwesome5
+                        name="trash"
+                        size={20}
+                        type="font-awesome"
+                        color="red"
+                      />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </Card>
+            );
+          })}
+        </ScrollView>
+      )}
+      <Overlay
+        isVisible={editFlag}
+        height={400}
+        width={"100%"}
+        onBackdropPress={() => setEditFlag(false)}
+      >
+        <View>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between"
+            }}
+          >
+            <Text
               style={{
-                flexDirection: "row",
-                justifyContent: "space-between"
+                fontSize: 14,
+                fontWeight: "bold"
               }}
             >
-              <Text
-                style={{
-                  fontSize: 14,
-                  fontWeight: "bold"
-                }}
-              >
-                Update Product
-              </Text>
-              <TouchableOpacity onPress={() => setEditFlag(false)}>
-                <FontAwesome5
-                  name="times"
-                  size={25}                  
-                  color="#000"
-                />
-              </TouchableOpacity>
-            </View>
-            <View>
-              <CreateProduct
-                mode="EDIT"
-                item={editItem}
-                updateItem={itemDetails => updateItem(itemDetails)}
-              />
-            </View>
+              Update Product
+            </Text>
+            <TouchableOpacity onPress={() => setEditFlag(false)}>
+              <FontAwesome5 name="times" size={25} color="#000" />
+            </TouchableOpacity>
           </View>
-        </Overlay>
-      </View>
+          <View>
+            <CreateProduct
+              mode="EDIT"
+              item={editItem}
+              updateItem={itemDetails => updateItem(itemDetails)}
+            />
+          </View>
+        </View>
+      </Overlay>
     </View>
   );
 };

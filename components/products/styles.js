@@ -1,8 +1,6 @@
 import { StyleSheet } from "react-native";
 export const onlineOrderStyles = StyleSheet.create({
-  productsContainer: {
-    flex: 9,
-    fontSize: 14
+  productsContainer: {       
   },
   itemsCard: {
     margin: 0
