@@ -1,8 +1,7 @@
 import { StyleSheet } from "react-native";
 export const sellStyles = StyleSheet.create({
-  sellContainer: {
-    fontSize: 12,
-    flex: 10
+  sellContainer: {    
+    flex: 10,    
   },
   orderItemRow: {
     // flex: 5,
@@ -27,8 +26,10 @@ export const sellStyles = StyleSheet.create({
     justifyContent: "space-between"
   },
   countBtn: {
-    backgroundColor: "#00D1FF",
-    width: 100,
-    height: 24
+    backgroundColor: "#349AF1",
+    width: 60,
+    height: 26,
+    alignItems:"center",
+    justifyContent:"center"
   }
 });

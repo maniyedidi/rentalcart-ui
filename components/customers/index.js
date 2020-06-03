@@ -6,15 +6,14 @@ import { reportStyles } from "./styles";
 import { appStyles } from "../../appStyles";
 import { logout } from "../../utils";
 
-const ReportsScreen = props => {
+const CustomersScreen = props => {
   const navigation = props.navigation;
-  
   return (
     <View style={reportStyles.reportContainer}>
       <View style={{ flex: 1 }}>
         <Header
           backgroundColor="#3D6CB9"          
-          leftComponent={{ text: "Reports", style: appStyles.headerTitle }}
+          leftComponent={{ text: "Customer", style: appStyles.headerTitle }}
           rightComponent={
             <FontAwesome5
               name="sign-out-alt"
@@ -33,4 +32,4 @@ const ReportsScreen = props => {
   );
 };
 
-export default ReportsScreen;
+export default CustomersScreen;

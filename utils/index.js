@@ -1,7 +1,7 @@
 import { retrieveData } from "../services/storage.service";
 import React from "react";
+import { Text, Platform, AsyncStorage } from "react-native";
 
-import { Text, Platform } from "react-native";
 export const authHeader = async () => {
   return retrieveData("user").then(user => {
     if (user && user !== "undefined") {
@@ -24,23 +24,24 @@ export const textCutFix = () => {
   Text.render = function(...args) {
     const origin = oldRender.call(this, ...args);
     return React.cloneElement(origin, {
-      style: [{ fontFamily: "Roboto" }, origin.props.style]
+      style: ["Roboto", origin.props.style]
     });
   };
 };
 
 export const viewDateFormat = inputDate => {
-    const date = new Date(inputDate);
-    return `${appendZero(date.getDate())}/${appendZero(date.getMonth() + 1) }/${date.getFullYear()}`;
-  };
-  
-  const appendZero = (num)=>{
-    if(num < 10 && num > 0){
-      return `0${num}`
-    }
-    return num;
-  
+  const date = new Date(inputDate);
+  return `${appendZero(date.getDate())}/${appendZero(
+    date.getMonth() + 1
+  )}/${date.getFullYear()}`;
+};
+
+const appendZero = num => {
+  if (num < 10 && num > 0) {
+    return `0${num}`;
   }
+  return num;
+};
 
 export const viewDateFormat2 = inputDate => {
   if (inputDate) {
@@ -48,4 +49,10 @@ export const viewDateFormat2 = inputDate => {
     return date;
   }
   return inputDate;
+};
+
+export const logout = navigation => {
+  AsyncStorage.clear().then(() => {  
+    navigation.navigate("Login");
+  });
 };

@@ -63,11 +63,7 @@ const CreateProduct = props => {
       ...itemDetails,
       availableCount: itemDetails.count
     };
-    invokeApi(
-      `${DOMAIN_NAME}${SHOP_ENDPOINTS.CREATE_ITEM}`,
-      "POST",
-      payload
-    )
+    invokeApi(`${DOMAIN_NAME}${SHOP_ENDPOINTS.CREATE_ITEM}`, "POST", payload)
       .then(data => {
         if (data.id) {
           navigation.navigate("Home");
@@ -100,44 +96,45 @@ const CreateProduct = props => {
   }, [props.item]);
 
   return (
-    <View>
-      <Card>
-        <TextInput
-          style={appStyles.input}
-          placeholder="Item Name"
-          onChangeText={value => onInputChange(value, "name")}
-          value={itemDetails.name}
-        />
-        <Text style={{ color: "red" }}>{errors.nameErr && "Required"}</Text>
-        <TextInput
-          style={appStyles.input}
-          placeholder="Item Description"
-          onChangeText={value => onInputChange(value, "description")}
-          value={itemDetails.description}
-        />
-        <TextInput
-          style={appStyles.input}
-          placeholder="Total items count"
-          keyboardType="number-pad"
-          onChangeText={value => onInputChange(+value, "count")}
-          value={`${itemDetails.count}`}
-        />
-        <Text style={{ color: "red" }}>{errors.countErr && "Required"}</Text>
-        <TextInput
-          style={appStyles.input}
-          placeholder={`Item Price`}
-          keyboardType="number-pad"
-          onChangeText={value => onInputChange(+value, "amount")}
-          value={`${itemDetails.amount}`}
-        />
-        <Text style={{ color: "red" }}>{errors.amountErr && "Required"}</Text>
-        <View style={{ margin: 7 }} />
-        <Button
-          buttonStyle={appStyles.primarybtn}
-          onPress={saveItem}
-          title={props.mode === MODES.edit ? "Update" : "Create"}
-        />
-      </Card>
+    <View style={{
+      padding:10,
+      backgroundColor:"#fff"
+    }}>
+      <TextInput
+        style={appStyles.input}
+        placeholder="Item Name"
+        onChangeText={value => onInputChange(value, "name")}
+        value={itemDetails.name}
+      />
+      <Text style={{ color: "red" }}>{errors.nameErr && "Required"}</Text>
+      <TextInput
+        style={appStyles.input}
+        placeholder="Item Description"
+        onChangeText={value => onInputChange(value, "description")}
+        value={itemDetails.description}
+      />
+      <TextInput
+        style={appStyles.input}
+        placeholder="Total items count"
+        keyboardType="number-pad"
+        onChangeText={value => onInputChange(+value, "count")}
+        value={`${itemDetails.count}`}
+      />
+      <Text style={{ color: "red" }}>{errors.countErr && "Required"}</Text>
+      <TextInput
+        style={appStyles.input}
+        placeholder={`Item Price`}
+        keyboardType="number-pad"
+        onChangeText={value => onInputChange(+value, "amount")}
+        value={`${itemDetails.amount}`}
+      />
+      <Text style={{ color: "red" }}>{errors.amountErr && "Required"}</Text>
+      <View style={{ margin: 7 }} />
+      <Button
+        buttonStyle={appStyles.primarybtn}
+        onPress={saveItem}
+        title={props.mode === MODES.edit ? "Update" : "Create"}
+      />
     </View>
   );
 };

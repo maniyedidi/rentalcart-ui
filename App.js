@@ -1,42 +1,35 @@
-import React, { Component } from "react";
-import { Dimensions } from "react-native";
-import { createDrawerNavigator, createAppContainer } from "react-navigation";
-import SideMenu from "./components/sidemenu";
-import stackNav from "./components/stackNav";
-import { MenuProvider } from "react-native-popup-menu";
-import { textCutFix } from "./utils";
+import React, { useEffect } from "react";
+import "react-native-gesture-handler";
+import { useFonts } from "@use-expo/font";
 import configureStore from "./redux/store";
+import AppRoutes from "./routes";
+
 const store = configureStore();
+
 import { Provider } from "react-redux";
+import Loader from "./shared-components/loader";
+import { textCutFix } from "./utils";
 
-const drawerNavigator = createDrawerNavigator(
-  {
-    Home: {
-      screen: stackNav
-    }
-  },
-  {
-    contentComponent: SideMenu,
-    drawerWidth: Dimensions.get("window").width - 150
-  }
-);
+const App = () => {
+  let [fontsLoaded] = useFonts({
+    "Roboto-Bold": require("./assets/fonts/Roboto-Bold.ttf"),
+    "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
+    "Roboto-Light": require("./assets/fonts/Roboto-Light.ttf")
+  });
 
-const AppContainer = createAppContainer(drawerNavigator);
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-  componentDidMount() {
+  useEffect(() => {
     textCutFix();
-  }
+  }, []);
 
-  render() {
+  if (!fontsLoaded) {
+    return <Loader />;
+  } else {
     return (
-      <MenuProvider>
-        <Provider store={store}>
-          <AppContainer />
-        </Provider>
-      </MenuProvider>
+      <Provider store={store}>
+        <AppRoutes />
+      </Provider>
     );
   }
-}
+};
+
+export default App;

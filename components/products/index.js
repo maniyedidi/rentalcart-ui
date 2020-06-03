@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { FontAwesome5 } from "@expo/vector-icons";
 import {
   Text,
   ScrollView,
@@ -7,7 +8,7 @@ import {
   TouchableOpacity
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { Card, Icon, Overlay } from "react-native-elements";
+import { Card, Overlay } from "react-native-elements";
 import { invokeApi } from "../../services/dataServices";
 import { DOMAIN_NAME, SHOP_ENDPOINTS } from "../../constants/endpoints";
 import { appStyles } from "../../appStyles";
@@ -105,22 +106,22 @@ const Products = props => {
                         Price : {item.amount}
                       </Text>
                       <Text style={onlineOrderStyles.name}>
-                        Available count : {item.availableCount}
+                        Available : {item.availableCount}
                       </Text>
                     </View>
                     <View style={onlineOrderStyles.actions}>
                       <TouchableOpacity onPress={() => editProduct(item)}>
-                        <Icon
+                        <FontAwesome5
                           name="edit"
-                          size={25}
+                          size={20}
                           type="font-awesome"
                           color="#0A4BB5"
                         />
                       </TouchableOpacity>
                       <TouchableOpacity onPress={() => deleteProduct(item)}>
-                        <Icon
+                        <FontAwesome5
                           name="trash"
-                          size={30}
+                          size={20}
                           type="font-awesome"
                           color="red"
                         />
@@ -132,7 +133,12 @@ const Products = props => {
             })}
           </ScrollView>
         )}
-        <Overlay isVisible={editFlag} height={400}>
+        <Overlay
+          isVisible={editFlag}
+          height={400}
+          width={"100%"}
+          onBackdropPress={() => setEditFlag(false)}
+        >
           <View>
             <View
               style={{
@@ -149,7 +155,11 @@ const Products = props => {
                 Update Product
               </Text>
               <TouchableOpacity onPress={() => setEditFlag(false)}>
-                <Icon name="close" size={25} type="font-awesome" color="#000" />
+                <FontAwesome5
+                  name="times"
+                  size={25}                  
+                  color="#000"
+                />
               </TouchableOpacity>
             </View>
             <View>

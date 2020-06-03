@@ -13,7 +13,7 @@ export const getItems = dispatch => {
     .then(data => {
       if (data.error) {
         dispatch({ type: ACTIONS.GET_ITEMS_LIST, payload: [] || {} });
-      } else {
+      } else {        
         dispatch({ type: ACTIONS.GET_ITEMS_LIST, payload: data || {} });
       }
       dataLoading(dispatch, false);

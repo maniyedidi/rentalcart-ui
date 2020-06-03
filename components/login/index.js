@@ -1,32 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Text, TextInput, View, TouchableOpacity } from "react-native";
 import { Button, Header, Card } from "react-native-elements";
 import { DOMAIN_NAME, SHOP_ENDPOINTS } from "../../constants/endpoints";
-import { storeData, retrieveData } from "../../services/storage.service";
+import { storeData } from "../../services/storage.service";
 import Loader from "../../shared-components/loader";
-import { authHeader } from "../../utils";
-import { RIGHT_MENU } from "../../constants";
 import { appStyles } from "../../appStyles";
+
 const Login = props => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [loggingIn, setLoggingIn] = useState(true);
+  const [loggingIn, setLoggingIn] = useState(false);
   const [erroFlag, setErroFlag] = useState(false);
   const [errorMsg, setErrorMessage] = useState("");
-
-  useEffect(() => {
-    _bootstrapAsync();
-  }, []);
-
-  const _bootstrapAsync = async () => {
-    const loginToken = await authHeader();
-    if (loginToken) {
-      props.navigation.navigate(RIGHT_MENU[0].title);
-      setLoggingIn(false);
-    } else {
-      setLoggingIn(false);
-    }
-  };
 
   const loginApp = () => {
     if (!username || !password) {
@@ -52,8 +37,7 @@ const Login = props => {
           setLoggingIn(false);
         } else {
           storeData("user", user).then(token => {
-            props.navigation.navigate("Sell");
-            setLoggingIn(false);
+            props.navigation.navigate("Home");            
           });
         }
       })
@@ -81,11 +65,7 @@ const Login = props => {
     <View>
       <Header
         backgroundColor="#3D6CB9"
-        placement="left"
-        leftComponent={{
-          text: "Rentalcart",
-          style: { color: "#fff", fontSize: 16 }
-        }}
+        leftComponent={<Text style={appStyles.headerTitle}>Rentalcart</Text>}
       />
       <Card>
         <TextInput
