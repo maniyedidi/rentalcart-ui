@@ -122,7 +122,9 @@ const Sell = props => {
         <AppHeader
           placement="right"
           navigation={navigation}
-          centerComponent={cartComponent()}
+          centerComponent={
+            Object.keys(orderedItems).length > 0 ? cartComponent() : null
+          }
         />
       </View>
 

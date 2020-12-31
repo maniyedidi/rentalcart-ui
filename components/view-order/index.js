@@ -18,7 +18,7 @@ const ViewOrder = props => {
     setDataLoading(true);
     invokeApi(
       `${DOMAIN_NAME}${SHOP_ENDPOINTS.ORDER}/${orderDetails._id}`,
-      "POST",
+      "PUT",
       {
         orderStatus: "Completed"
       }

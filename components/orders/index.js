@@ -8,7 +8,7 @@ import {
   RefreshControl
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { Card, Badge } from "react-native-elements";
+import { Card, Badge, Overlay } from "react-native-elements";
 import { appStyles } from "../../appStyles";
 import { ordersStyles } from "./styles";
 import Loader from "../../shared-components/loader";
@@ -26,6 +26,12 @@ const Orders = props => {
   const [dataLoading, setDataLoading] = useState(storeDataLoading);
   const [orderList, setOrderList] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [filters, setFilter] = useState({ status: ["open"] });
+
+  const toggleOverlay = () => {
+    setVisible(!visible);
+  };
 
   useEffect(() => {
     getOrders(dispatch);
@@ -37,8 +43,13 @@ const Orders = props => {
   }, [refreshing]);
 
   useEffect(() => {
-    if (storeOrders) {
-      setOrderList(storeOrders);
+    if (storeOrders && Array.isArray(storeOrders)) {
+      setOrderList(
+        storeOrders.filter(
+          order => filters.status.indexOf(order.orderStatus) !== -1
+        )
+      );
+      setRefreshing(false);
     }
   }, [storeOrders]);
 
@@ -52,10 +63,38 @@ const Orders = props => {
     });
   };
 
+  const filterComponent = () => {
+    return (
+      <TouchableOpacity onPress={toggleOverlay}>
+        <FontAwesome5 name="filter" size={22} color="white" />
+      </TouchableOpacity>
+    );
+  };
+
+  const updatedFilters = () => {
+    let newfilters = {
+      status: ["open"]
+    };
+    if (filters.status.indexOf("Completed") === -1) {
+      newfilters.status.push("Completed");
+    }
+    setOrderList(
+      storeOrders.filter(
+        order => newfilters.status.indexOf(order.orderStatus) !== -1
+      )
+    );
+    setFilter(newfilters);
+    toggleOverlay();
+  };
+
   return (
     <View style={ordersStyles.orderContainer}>
       <View>
-        <AppHeader placement="right" navigation={navigation} />
+        <AppHeader
+          placement="right"
+          navigation={navigation}
+          centerComponent={filterComponent()}
+        />
       </View>
 
       {dataLoading ? (
@@ -121,6 +160,36 @@ const Orders = props => {
           )}
         </View>
       )}
+
+      <Overlay
+        onBackdropPress={() => setVisible(false)}
+        isVisible={visible}
+        onBackdropPress={toggleOverlay}
+      >
+        <View
+          style={{
+            width: 300,
+            height: 100
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: "bold",
+              paddingBottom: 20
+            }}
+          >
+            Filter Orders by status
+          </Text>
+          <View>
+            <TouchableOpacity onPress={updatedFilters}>
+              <Text style={appStyles.link}>
+                Click here to add/remove completed orders
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Overlay>
     </View>
   );
 };
