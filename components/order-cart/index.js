@@ -65,7 +65,7 @@ const OrderCart = props => {
     invokeApi(`${DOMAIN_NAME}${SHOP_ENDPOINTS.CREATE_ORDER}`, "POST", payload)
       .then(data => {
         if (data.error) {
-        } else {
+        } else {          
           navToOrderScreen();
         }
         setDataLoading(false);

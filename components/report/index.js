@@ -1,8 +1,6 @@
 import React from "react";
-import { View, Text } from "react-native";
-import { FontAwesome5 } from "@expo/vector-icons";
+import { View, Text, TouchableHighlight } from "react-native";
 import { reportStyles } from "./styles";
-import { logout } from "../../utils";
 import AppHeader from "../../shared-components/header";
 
 const ReportsScreen = props => {
@@ -13,7 +11,15 @@ const ReportsScreen = props => {
       <AppHeader placement="right" navigation={navigation} />
 
       <View style={{ flex: 9, justifyContent: "center", alignItems: "center" }}>
-        <Text style={reportStyles.infomsg}>Only for PRO account</Text>
+        <TouchableHighlight
+          // onPress={() => {
+          //   console.log("we are here");
+
+          //   navigation.navigate("Payment");
+          // }}
+        >
+          <Text style={reportStyles.infomsg}>Only for PRO account</Text>
+        </TouchableHighlight>
       </View>
     </View>
   );

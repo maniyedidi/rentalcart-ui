@@ -13,6 +13,7 @@ import CustomersScreen from "../components/customers";
 import CreateProduct from "../components/create-product";
 import OrderCart from "../components/order-cart";
 import ViewOrder from "../components/view-order";
+import Payment from "../components/payment";
 
 const Stack = createStackNavigator();
 
@@ -96,6 +97,13 @@ const AppRoutes = () => {
           component={ViewOrder}
           options={{
             title: "Order details"
+          }}
+        />
+        <Stack.Screen
+          name="Payment"
+          component={Payment}
+          options={{
+            title: "Payment"
           }}
         />
       </Stack.Navigator>

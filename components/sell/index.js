@@ -15,12 +15,15 @@ import { sellStyles } from "./styles";
 import Loader from "../../shared-components/loader";
 import AppHeader from "../../shared-components/header";
 import { storeData } from "../../services/storage.service";
-import { getItems } from "../../redux/actions";
+import { getItems, addItems, removeItems } from "../../redux/actions";
 
 const Sell = props => {
   const dispatch = useDispatch();
   const navigation = props.navigation;
   const storeItems = useSelector(state => state.appStore.items || []);
+  const storeOrderedItems = useSelector(
+    state => state.appStore.orderedItems || {}
+  );
   const storeDataLoading = useSelector(
     state => state.appStore.dataLoading || false
   );
@@ -32,6 +35,10 @@ const Sell = props => {
   useEffect(() => {
     getItems(dispatch);
   }, []);
+
+  useEffect(() => {
+    setOrderedItems(storeOrderedItems || {});
+  }, [storeOrderedItems]);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -66,7 +73,8 @@ const Sell = props => {
       orderedItems[item.id] = item;
       orderedItems[item.id]["orderCount"] = 1;
     }
-    setOrderedItems({ ...orderedItems });
+    addItems(dispatch, { ...orderedItems });
+    //setOrderedItems({ ...orderedItems });
   };
 
   const removeItem = item => {
@@ -80,7 +88,8 @@ const Sell = props => {
         delete orderedItems[item.id];
       }
     }
-    setOrderedItems({ ...orderedItems });
+    removeItems(dispatch, { ...orderedItems });
+    // setOrderedItems({ ...orderedItems });
   };
 
   const navToDetailsScreen = () => {
