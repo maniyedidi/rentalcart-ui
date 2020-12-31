@@ -14,6 +14,7 @@ import CreateProduct from "../components/create-product";
 import OrderCart from "../components/order-cart";
 import ViewOrder from "../components/view-order";
 import Payment from "../components/payment";
+import Singup from "../components/signup";
 
 const Stack = createStackNavigator();
 
@@ -79,6 +80,13 @@ const AppRoutes = () => {
         <Stack.Screen
           name="Login"
           component={Login}
+          options={{
+            headerShown: false
+          }}
+        />
+        <Stack.Screen
+          name="Singup"
+          component={Singup}
           options={{
             headerShown: false
           }}

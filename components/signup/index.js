@@ -6,6 +6,9 @@ import Loader from "../../shared-components/loader";
 import { appStyles } from "../../appStyles";
 
 const Singup = props => {
+  const [loggingIn, setLoggingIn] = useState(false);
+  const [accountFlag, setAccountFlag] = useState(false);
+
   const [userDetails, setUserDetails] = useState({
     userId: Date.now().toString(),
     firstName: "",
@@ -27,7 +30,7 @@ const Singup = props => {
     confirmPasswordErr: false
   });
 
-  onInputTextChange = (value, dataLabel) => {
+  const onInputTextChange = (value, dataLabel) => {
     setUserDetails({
       ...userDetails,
       [dataLabel]: value
@@ -38,10 +41,7 @@ const Singup = props => {
     });
   };
 
-  const [loggingIn, setLoggingIn] = useState(false);
-  const [accountFlag, setAccountFlag] = useState(false);
-
-  isFormValid = () => {
+  const isFormValid = () => {
     let errors = {
       firstNameErr: false,
       contactErr: false,

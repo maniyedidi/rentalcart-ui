@@ -92,7 +92,7 @@ const Login = props => {
         />
         <Text style={{ color: "red" }}>{errorMsg}</Text>
         <TouchableOpacity
-          onPress={() => props.navigation.navigate("SignupScreen")}
+          onPress={() => props.navigation.navigate("Singup")}
         >
           <Text style={appStyles.link}>Create an account for login</Text>
         </TouchableOpacity>
